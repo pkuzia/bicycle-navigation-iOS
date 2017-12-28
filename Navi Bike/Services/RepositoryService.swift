@@ -7,43 +7,10 @@
 //
 
 import Foundation
-import RealmSwift
 
 // MARK: Database
 
 class RepositoryService: BaseService {
-    
-    func getRepositories(_ username: String,
-                         completionHandler: @escaping (FetchResult, [Repository]?) -> ()) {
-        return getRepositories(username, update: false, completionHandler: completionHandler)
-    }
-    
-    func getRepositories(_ username: String, update: Bool,
-                         completionHandler: @escaping (FetchResult, [Repository]?) -> ()) {
-        
-        do {
-            let realm = try Realm()
-            
-            if !update {
-                let repositories = realm.objects(Repository.self)
-                if repositories.isEmpty {
-                    let repositories = Array(repositories)
-                    completionHandler(FetchResult(error: nil), repositories)
-                }
-            }
-            getRepositoriesFromAPI(username, completionHandler: { fetchResult, repositories in
-                self.writeArray(fetchResult: fetchResult, array: repositories, completionHandler: completionHandler)
-            })
-            
-        } catch _ {
-            completionHandler(FetchResult(error: .databaseError), nil)
-        }
-    }
-}
-
-// MARK: Networking
-
-extension RepositoryService {
     
     fileprivate func getRepositoriesFromAPI(_ username: String,
                                             completionHandler: @escaping (FetchResult, [Repository]?) -> ()) {

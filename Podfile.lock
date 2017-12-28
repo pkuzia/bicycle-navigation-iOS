@@ -1,0 +1,51 @@
+PODS:
+  - Alamofire (4.6.0)
+  - GoogleMaps (2.5.0):
+    - GoogleMaps/Maps (= 2.5.0)
+  - GoogleMaps/Base (2.5.0)
+  - GoogleMaps/Maps (2.5.0):
+    - GoogleMaps/Base
+  - Moya (8.0.5):
+    - Moya/Core (= 8.0.5)
+  - Moya-ObjectMapper (2.4):
+    - Moya-ObjectMapper/Core (= 2.4)
+  - Moya-ObjectMapper/Core (2.4):
+    - Moya (~> 8.0)
+    - ObjectMapper (~> 2.2)
+  - Moya/Core (8.0.5):
+    - Alamofire (~> 4.1)
+    - Result (~> 3.0)
+  - ObjectMapper (2.2.9)
+  - Result (3.2.4)
+  - SwifterSwift (4.1.0):
+    - SwifterSwift/AppKit (= 4.1.0)
+    - SwifterSwift/CoreGraphics (= 4.1.0)
+    - SwifterSwift/CoreLocation (= 4.1.0)
+    - SwifterSwift/Foundation (= 4.1.0)
+    - SwifterSwift/SwiftStdlib (= 4.1.0)
+    - SwifterSwift/UIKit (= 4.1.0)
+  - SwifterSwift/AppKit (4.1.0)
+  - SwifterSwift/CoreGraphics (4.1.0)
+  - SwifterSwift/CoreLocation (4.1.0)
+  - SwifterSwift/Foundation (4.1.0)
+  - SwifterSwift/SwiftStdlib (4.1.0)
+  - SwifterSwift/UIKit (4.1.0)
+
+DEPENDENCIES:
+  - GoogleMaps
+  - Moya (~> 8.0)
+  - Moya-ObjectMapper
+  - SwifterSwift
+
+SPEC CHECKSUMS:
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
+  Moya: c37eec09a098ba9991b5a963b291fc5704bdb9ef
+  Moya-ObjectMapper: 5807a3f30fea8fd07a9fc0e324cda1655e1602ab
+  ObjectMapper: 63cfe41bc6f8e7c8f44344c49901b8ae7de14c52
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  SwifterSwift: 4d962b5d653760b85266832aff6ab6d08c1b7974
+
+PODFILE CHECKSUM: 63621b906c39061c2655b1bef69a2c0e6b8c2fa6
+
+COCOAPODS: 1.2.0

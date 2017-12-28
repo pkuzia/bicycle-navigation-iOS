@@ -1,18 +1,18 @@
 //
-//  ExampleViewController.swift
+//  NavigationViewController.swift
 //  Navi Bike
 //
-//  Created by Przemysław Kuzia on 12/28/17
-//  Copyright (c) 2017 pkuzia. All rights reserved.
+//  Created by Przemysław Kuzia on 28.12.2017.
+//Copyright © 2017 pkuzia. All rights reserved.
 //
 
 import UIKit
 
-class ExampleViewController: BaseViewController {
+class NavigationViewController: BaseViewController {
     
     // MARK: - Outlets
     
-    var exampleViewModel = ExampleViewModel()
+    let navigationViewModel = NavigationViewModel()
     
     // MARK: - View Lifecycle
 
@@ -36,9 +36,7 @@ class ExampleViewController: BaseViewController {
     // MARK: - Appearance
     
     func initUI() {
-        exampleViewModel.getRepositories("iteratorsmobile") { fetchResult in
-            
-        }
+        
     }
     
     // MARK: - User Interaction
@@ -47,8 +45,9 @@ class ExampleViewController: BaseViewController {
     
 }
 
-// MARK: - ExampleViewModelDelegate
+// MARK: - NavigationViewControllerViewModelDelegate
 
-extension ExampleViewController: ExampleViewModelDelegate {
+extension NavigationViewController: NavigationViewModelDelegate {
     
 }
+
