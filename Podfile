@@ -13,6 +13,7 @@ pod 'GoogleMaps'
 # # DB & Networking
 pod 'Moya-ObjectMapper'
 pod 'Moya', '~> 8.0'
+pod 'ObjectMapper', '~> 2.2'
 
 post_install do |installer|
 	swift40Targets = ['SwifterSwift']

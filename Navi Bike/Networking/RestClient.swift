@@ -21,7 +21,7 @@ private func JSONResponseDataFormatter(_ data: Data) -> Data {
     }
 }
 
-let GitHubProvider = MoyaProvider<RestClient>(plugins: [NetworkLoggerPlugin(verbose: true, responseDataFormatter: JSONResponseDataFormatter)])
+let googleMapsProvider = MoyaProvider<RestClient>(plugins: [NetworkLoggerPlugin(verbose: true, responseDataFormatter: JSONResponseDataFormatter)])
 
 // MARK: - Provider support
 
@@ -32,22 +32,16 @@ private extension String {
 }
 
 public enum RestClient {
-    case zen
-    case userProfile(String)
-    case userRepositories(String)
+    case route(RouteRequest)
 }
 
 extension RestClient: TargetType {
-    public var baseURL: URL { return URL(string: "https://api.github.com")! }
+    public var baseURL: URL { return URL(string: "https://maps.googleapis.com/maps/api/directions/json")! }
     
     public var path: String {
         switch self {
-        case .zen:
-            return "/zen"
-        case .userProfile(let name):
-            return "/users/\(name.urlEscapedString)"
-        case .userRepositories(let name):
-            return "/users/\(name.urlEscapedString)/repos"
+        case .route:
+            return "?origin=Disneyland&destination=Universal+Studios+Hollywood4&key=AIzaSyBM6cgLuiiHUVC9OIIUB7PcWy9jp5dj_TQ"
         }
     }
     
@@ -57,10 +51,8 @@ extension RestClient: TargetType {
     
     public var parameters: [String: Any]? {
         switch self {
-        case .userRepositories(_):
-            return ["sort": "pushed"]
-        default:
-            return nil
+        case .route(_):
+            return [:]
         }
     }
     
@@ -74,22 +66,13 @@ extension RestClient: TargetType {
     
     public var validate: Bool {
         switch self {
-        case .zen:
+        case .route:
             return true
-        default:
-            return false
         }
     }
     
     public var sampleData: Data {
-        switch self {
-        case .zen:
-            return "Half measures are as bad as nothing at all.".data(using: String.Encoding.utf8)!
-        case .userProfile(let name):
-            return "{\"login\": \"\(name)\", \"id\": 100}".data(using: String.Encoding.utf8)!
-        case .userRepositories(_):
-            return "[{\"name\": \"Repo Name\"}]".data(using: String.Encoding.utf8)!
-        }
+        return "Sample Data.".data(using: String.Encoding.utf8)!
     }
 }
 

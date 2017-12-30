@@ -10,4 +10,6 @@ import Foundation
 
 class BaseRequest {
     
+    let bodyName = "body"
+    let queryName = "query"
 }

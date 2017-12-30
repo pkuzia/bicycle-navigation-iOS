@@ -7,8 +7,41 @@
 //
 
 import Foundation
-import ObjectMapper
 
-class RouteRequest: BaseRequest {
+struct Point {
+    var lat: Float
+    var lng: Float
+    
+    init(lat: Float, lng: Float) {
+        self.lat = lat
+        self.lng = lng
+    }
+}
+
+
+public class RouteRequest: BaseRequest {
+    
+    var startPoint: Point
+    var endPoint: Point
+    
+    init(startPoint: Point, endPoint: Point) {
+        self.startPoint = startPoint
+        self.endPoint = endPoint
+    }
+    
+    fileprivate func getParametersBody() -> [String: Any]? {
+        return nil
+    }
+    
+    fileprivate func getParametersQuery() -> [String: Any]? {
+        return [:]
+    }
+    
+    public func getParameters() -> [String: Any]? {
+        var parameters: [String: Any] = [:]
+        parameters[queryName] = getParametersQuery()
+        parameters[bodyName] = getParametersBody()
+        return parameters
+    }
     
 }

@@ -23,6 +23,7 @@
 		97EC410C1FF5751100F14D2E /* MainNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC410B1FF5751100F14D2E /* MainNavigationViewController.swift */; };
 		97EC41111FF5756200F14D2E /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41101FF5756200F14D2E /* NavigationViewModel.swift */; };
 		97EC41131FF5758600F14D2E /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41121FF5758600F14D2E /* NavigationViewController.swift */; };
+		97EC41151FF6493600F14D2E /* RouteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41141FF6493600F14D2E /* RouteResponse.swift */; };
 		9D2C8B264FBEA5286344D6EB /* Pods_Navi_Bike.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9428BFE6A0754252A06D5402 /* Pods_Navi_Bike.framework */; };
 		9FA9F3E3603D43CFC5AB6B33 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F703659E5B4BFC4B570798 /* BaseViewModel.swift */; };
 		AAE4C553BE6EA3C3FE2FBA8D /* RepositoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8BD68456C586FD8C0DACE /* RepositoryService.swift */; };
@@ -57,6 +58,7 @@
 		97EC410B1FF5751100F14D2E /* MainNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationViewController.swift; sourceTree = "<group>"; };
 		97EC41101FF5756200F14D2E /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		97EC41121FF5758600F14D2E /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		97EC41141FF6493600F14D2E /* RouteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteResponse.swift; sourceTree = "<group>"; };
 		A4F703659E5B4BFC4B570798 /* BaseViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		A69FC7C5D87C3476D8412552 /* Navi Bike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Navi Bike.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC727FDAA2C851121F0B5905 /* Pods-Navi Bike.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navi Bike.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Navi Bike/Pods-Navi Bike.debug.xcconfig"; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				97EC41061FF5742200F14D2E /* BaseResponse.swift */,
+				97EC41141FF6493600F14D2E /* RouteResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 			files = (
 				97EC41111FF5756200F14D2E /* NavigationViewModel.swift in Sources */,
 				97EC41071FF5742300F14D2E /* BaseResponse.swift in Sources */,
+				97EC41151FF6493600F14D2E /* RouteResponse.swift in Sources */,
 				7890752AA337E205AE19CAA7 /* Localizable.strings in Sources */,
 				94548C59FDC57208A89BF9C2 /* StoryboardHelper.swift in Sources */,
 				97EC41031FF573EE00F14D2E /* RouteRequest.swift in Sources */,

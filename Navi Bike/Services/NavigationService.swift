@@ -9,5 +9,10 @@
 import Foundation
 
 class NavigationService: BaseService {
-    
+ 
+    func routes(routeRequest: RouteRequest, completionHandler: @escaping (FetchResult, RouteResponse?) -> ()) {
+        googleMapsProvider.request(.route(routeRequest)) { result in
+            self.handleMoyaResultWithMappingObject(result: result, completionHandler: completionHandler)
+        }
+    }
 }

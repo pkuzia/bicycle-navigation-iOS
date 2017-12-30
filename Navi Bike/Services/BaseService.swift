@@ -7,12 +7,15 @@
 //
 
 import Foundation
+import Moya_ObjectMapper
+import Moya
+import Result
 
 public struct FetchResult {
     let error: FetchError?
 }
 
-enum FetchError: Error {
+enum FetchError: Swift.Error {
     case connectionError
     case parseError
     case unknownError
@@ -34,5 +37,39 @@ enum FetchError: Error {
 
 class BaseService {
 
-    
+    func handleMoyaResultWithMappingObject<T: BaseResponse>(result: Result<Moya.Response, MoyaError>,
+                                                                 completionHandler: @escaping (FetchResult, T?) -> ()) {
+        switch result {
+        case let .success(response):
+            do {
+                let validResponse = try response.filterSuccessfulStatusCodes()
+                let response: T? = try validResponse.mapObject(T.self)
+                
+                if let response = response {
+                    completionHandler(FetchResult(error: nil), response)
+                } else {
+                    completionHandler(FetchResult(error: .parseError), nil)
+                }
+            } catch let error as MoyaError {
+                switch error {
+                case .statusCode(_): do {
+                        completionHandler(FetchResult(error: .connectionError), nil)
+                    }
+                case .jsonMapping(_): do {
+                    completionHandler(FetchResult(error: .parseError), nil)
+                    }
+                default:
+                    completionHandler(FetchResult(error: .unknownError), nil)
+                }
+            }
+            catch {
+                completionHandler(FetchResult(error: .unknownError), nil)
+            }
+        case let .failure(error):
+            guard let error = error.errorDescription else {
+                break
+            }
+            completionHandler(FetchResult(error: .errorMessage(error.description)), nil)
+        }
+    }
 }
