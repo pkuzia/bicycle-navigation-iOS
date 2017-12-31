@@ -8,6 +8,10 @@
 
 import Foundation
 import Moya
+import Alamofire
+
+let bodyName = "body"
+let queryName = "query"
 
 // MARK: - Provider setup
 
@@ -36,12 +40,12 @@ public enum RestClient {
 }
 
 extension RestClient: TargetType {
-    public var baseURL: URL { return URL(string: "https://maps.googleapis.com/maps/api/directions/json")! }
+    public var baseURL: URL { return URL(string: "https://maps.googleapis.com/maps/api/")! }
     
     public var path: String {
         switch self {
         case .route:
-            return "?origin=Disneyland&destination=Universal+Studios+Hollywood4&key=AIzaSyBM6cgLuiiHUVC9OIIUB7PcWy9jp5dj_TQ"
+            return "directions/json"
         }
     }
     
@@ -51,13 +55,13 @@ extension RestClient: TargetType {
     
     public var parameters: [String: Any]? {
         switch self {
-        case .route(_):
-            return [:]
+        case .route(let routeRequest):
+            return routeRequest.getParameters()
         }
     }
     
     public var parameterEncoding: ParameterEncoding {
-        return URLEncoding.default
+        return CompositeEncoding()
     }
     
     public var task: Task {
@@ -79,3 +83,23 @@ extension RestClient: TargetType {
 public func url(_ route: TargetType) -> String {
     return route.baseURL.appendingPathComponent(route.path).absoluteString
 }
+
+struct CompositeEncoding: ParameterEncoding {
+    func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+        guard let parameters = parameters else {
+            return try urlRequest.asURLRequest()
+        }
+        
+        let queryParameters = parameters[queryName] as? Parameters
+        let queryRequest = try URLEncoding(destination: .queryString).encode(urlRequest, with: queryParameters)
+        
+        if let bodyParameters = parameters[bodyName] as? Parameters {
+            var bodyRequest = try JSONEncoding().encode(urlRequest, with: bodyParameters)
+            bodyRequest.url = queryRequest.url
+            return bodyRequest
+        } else {
+            return queryRequest
+        }
+    }
+}
+

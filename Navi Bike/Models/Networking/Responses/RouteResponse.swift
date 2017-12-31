@@ -12,11 +12,11 @@ import ObjectMapper
 class RouteResponse: BaseResponse {
     
     var polyline: String?
-    var route: Route?
+    var routes: Route?
     
     override public func mapping(map: Map) {
-        polyline <- map["overview_polyline.points"]
-        route <- map["legs.0"]
+        polyline <- map["routes.0.overview_polyline.points"]
+        routes <- map["routes.0.legs.0"]
     }
 }
 
@@ -26,10 +26,10 @@ class Route: BaseResponse {
     var duration: String?
     
     var endPointAddress: String?
-    var endPoint: Point?
+    var endPoint: GooglePoint?
     
     var startPointAddress: String?
-    var startPoint: Point?
+    var startPoint: GooglePoint?
     
     var steps: [Step]?
     
@@ -52,8 +52,8 @@ class Step: BaseResponse {
     var distance: String?
     var duration: String?
     
-    var endPoint: Point?
-    var startPoint: Point?
+    var endPoint: GooglePoint?
+    var startPoint: GooglePoint?
     
     var instructions: String?
     
@@ -65,5 +65,16 @@ class Step: BaseResponse {
         startPoint <- map["start_location"]
         
         instructions <- map["html_instructions"]
+    }
+}
+
+class GooglePoint: BaseResponse {
+    
+    var lat: Float?
+    var lng: Float?
+
+    override public func mapping(map: Map) {
+        lat <- map["lat"]
+        lng <- map["lng"]
     }
 }

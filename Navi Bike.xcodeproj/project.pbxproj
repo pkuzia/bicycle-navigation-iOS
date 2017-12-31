@@ -24,10 +24,10 @@
 		97EC41111FF5756200F14D2E /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41101FF5756200F14D2E /* NavigationViewModel.swift */; };
 		97EC41131FF5758600F14D2E /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41121FF5758600F14D2E /* NavigationViewController.swift */; };
 		97EC41151FF6493600F14D2E /* RouteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41141FF6493600F14D2E /* RouteResponse.swift */; };
-		9D2C8B264FBEA5286344D6EB /* Pods_Navi_Bike.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9428BFE6A0754252A06D5402 /* Pods_Navi_Bike.framework */; };
 		9FA9F3E3603D43CFC5AB6B33 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F703659E5B4BFC4B570798 /* BaseViewModel.swift */; };
 		AAE4C553BE6EA3C3FE2FBA8D /* RepositoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8BD68456C586FD8C0DACE /* RepositoryService.swift */; };
 		B7A7F6FD64F5BB17B7382E7F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEAE905292044560ACC9F1F /* Foundation.framework */; };
+		FE1CF6D1F4B79B4B68285B3F /* Pods_Navi_Bike.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1E627553D6A70360A8F68 /* Pods_Navi_Bike.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,6 @@
 		7AEAE905292044560ACC9F1F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		824F4FF2E59B65BF8B204AA9 /* BaseViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8280A999B148109C9CA602C8 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9428BFE6A0754252A06D5402 /* Pods_Navi_Bike.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navi_Bike.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97EC41001FF5732500F14D2E /* NavigationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationService.swift; sourceTree = "<group>"; };
 		97EC41021FF573EE00F14D2E /* RouteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRequest.swift; sourceTree = "<group>"; };
 		97EC41041FF5741200F14D2E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
@@ -61,6 +60,7 @@
 		97EC41141FF6493600F14D2E /* RouteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteResponse.swift; sourceTree = "<group>"; };
 		A4F703659E5B4BFC4B570798 /* BaseViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		A69FC7C5D87C3476D8412552 /* Navi Bike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Navi Bike.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7D1E627553D6A70360A8F68 /* Pods_Navi_Bike.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navi_Bike.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC727FDAA2C851121F0B5905 /* Pods-Navi Bike.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navi Bike.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Navi Bike/Pods-Navi Bike.debug.xcconfig"; sourceTree = "<group>"; };
 		C1D12B236391C04FA7ACEE01 /* RestClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
 		D181FEE673FA0C7E1D2EEA5B /* String.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7A7F6FD64F5BB17B7382E7F /* Foundation.framework in Frameworks */,
-				9D2C8B264FBEA5286344D6EB /* Pods_Navi_Bike.framework in Frameworks */,
+				FE1CF6D1F4B79B4B68285B3F /* Pods_Navi_Bike.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				A7D96CF9AFB99B3D74449530 /* iOS */,
-				9428BFE6A0754252A06D5402 /* Pods_Navi_Bike.framework */,
+				A7D1E627553D6A70360A8F68 /* Pods_Navi_Bike.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -289,7 +289,6 @@
 				D8F1B741E2D85C25A5CB5D9E /* Resources */,
 				2AE60EA183999CA8205A8A06 /* Warn for TODO and FIXME comments */,
 				58041E41C47FFAC4485FADB1 /* Set version number */,
-				F15D8B7512E57F5BA9032886 /* Active Swiftlint */,
 				A7D88938E5FE43501C4E851A /* [CP] Embed Pods Frameworks */,
 				4ED5CB4B47379808967E8193 /* [CP] Copy Pods Resources */,
 			);
@@ -447,20 +446,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
-		};
-		F15D8B7512E57F5BA9032886 /* Active Swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Active Swiftlint";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -656,6 +641,7 @@
 				PROVISIONING_PROFILE = "563a2a7b-061f-4575-a5ff-7411db48fe10";
 				PROVISIONING_PROFILE_SPECIFIER = Development;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -701,6 +687,7 @@
 				PROVISIONING_PROFILE = "563a2a7b-061f-4575-a5ff-7411db48fe10";
 				PROVISIONING_PROFILE_SPECIFIER = Development;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

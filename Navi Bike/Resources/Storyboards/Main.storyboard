@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kWp-0k-9U7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="-950" y="29"/>
         </scene>
-        <!--View Controller-->
+        <!--Navigation View Controller-->
         <scene sceneID="pv2-p5-fG2">
             <objects>
-                <viewController id="Kad-9s-FGc" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NavigationViewController" id="Kad-9s-FGc" customClass="NavigationViewController" customModule="Navi_Bike" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IKO-BC-UGT"/>
                         <viewControllerLayoutGuide type="bottom" id="6KE-cr-Npa"/>
@@ -42,7 +42,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3y-4S-CaC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-70" y="36"/>
+            <point key="canvasLocation" x="-60" y="28"/>
         </scene>
     </scenes>
 </document>

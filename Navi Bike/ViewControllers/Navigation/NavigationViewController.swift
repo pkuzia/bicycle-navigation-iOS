@@ -36,7 +36,10 @@ class NavigationViewController: BaseViewController {
     // MARK: - Appearance
     
     func initUI() {
-        
+        navigationViewModel.navigationRoute(startPoint: Point(lat: 52.250771, lng: 20.845112),
+                                            endPoint: Point(lat: 52.231290, lng: 20.956922)) { result in
+            
+        }
     }
     
     // MARK: - User Interaction

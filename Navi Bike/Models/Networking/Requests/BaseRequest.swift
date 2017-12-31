@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BaseRequest {
+public class BaseRequest {
     
     let bodyName = "body"
     let queryName = "query"
