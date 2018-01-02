@@ -15,4 +15,10 @@ class NavigationService: BaseService {
             self.handleMoyaResultWithMappingObject(result: result, completionHandler: completionHandler)
         }
     }
+    
+    func geocode(geocodeRequest: GeocodeRequest, completionHandler: @escaping (FetchResult, GeocodeResponse?) -> ()) {
+        googleMapsProvider.request(.geocode(geocodeRequest)) { result in
+            self.handleMoyaResultWithMappingObject(result: result, completionHandler: completionHandler)
+        }
+    }
 }

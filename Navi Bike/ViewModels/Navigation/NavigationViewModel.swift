@@ -7,14 +7,24 @@
 //
 
 import UIKit
+import GoogleMaps
 
 protocol NavigationViewModelDelegate: class {
     
 }
 
+enum MarkerType {
+    case start, end
+}
+
 class NavigationViewModel: BaseViewModel {
     
     // MARK: - Strings
+    
+    let startPointPlaceholder = "start_point_placeholder".localized
+    let endPointPlaceholder = "end_point_placeholder".localized
+    
+    let geocodeSpinnerInfo = "geocode_spinner".localized
     
     // MARK: - View Model Data
     
@@ -23,8 +33,24 @@ class NavigationViewModel: BaseViewModel {
     weak var delegate: NavigationViewModelDelegate?
     
     var routeResponse: RouteResponse?
+    var startPointGeocode: GeocodeResponse?
+    var endPointGeocode: GeocodeResponse?
     
     // MARK: - Functions
+    
+    func getGeocodePoint(type: MarkerType) -> CLLocationCoordinate2D? {
+        switch type {
+        case .start:
+            if let lat = startPointGeocode?.lat, let lng = startPointGeocode?.lng {
+                return CLLocationCoordinate2D(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lng))
+            }
+        case .end:
+            if let lat = endPointGeocode?.lat, let lng = endPointGeocode?.lng {
+                return CLLocationCoordinate2D(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lng))
+            }
+        }
+        return nil
+    }
     
     func navigationRoute(startPoint: Point, endPoint: Point, completionHandler: @escaping (FetchResult) -> ()) {
         let routeRequest = RouteRequest(startPoint: startPoint, endPoint: endPoint)
@@ -43,6 +69,26 @@ class NavigationViewModel: BaseViewModel {
             }
         }
     }
+    
+    func geocode(address: String, startPoint: Bool, completionHandler: @escaping (FetchResult) -> ()) {
+        let geocodeRequest = GeocodeRequest(address: address)
+        navigationService.geocode(geocodeRequest: geocodeRequest) { result, geocodeResponse in
+            DispatchQueue.main.async {
+                if result.error != nil {
+                    completionHandler(result)
+                } else {
+                    if let geocodeResponse = geocodeResponse {
+                        if startPoint {
+                            self.startPointGeocode = geocodeResponse
+                        } else {
+                            self.endPointGeocode = geocodeResponse
+                        }
+                        completionHandler(FetchResult(error: nil))
+                    } else {
+                        completionHandler(FetchResult(error: .unknownError))
+                    }
+                }
+            }
+        }
+    }
 }
-
-

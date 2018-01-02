@@ -16,6 +16,8 @@
 		7890752AA337E205AE19CAA7 /* Localizable.strings in Sources */ = {isa = PBXBuildFile; fileRef = 45D576FCA9C197DA44C4DED7 /* Localizable.strings */; };
 		829014781001C16B3B4003AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7600AC972EA4F31A26BB1A18 /* Main.storyboard */; };
 		94548C59FDC57208A89BF9C2 /* StoryboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C874A4A3DA7F2DEFF0805B /* StoryboardHelper.swift */; };
+		9751B3F61FFB8BC20007D910 /* GeocodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9751B3F51FFB8BC20007D910 /* GeocodeResponse.swift */; };
+		975DA11E1FF93E0F002C94A6 /* GeocodeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975DA11D1FF93E0E002C94A6 /* GeocodeRequest.swift */; };
 		97EC41011FF5732500F14D2E /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41001FF5732500F14D2E /* NavigationService.swift */; };
 		97EC41031FF573EE00F14D2E /* RouteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41021FF573EE00F14D2E /* RouteRequest.swift */; };
 		97EC41051FF5741200F14D2E /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41041FF5741200F14D2E /* BaseRequest.swift */; };
@@ -50,6 +52,8 @@
 		7AEAE905292044560ACC9F1F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		824F4FF2E59B65BF8B204AA9 /* BaseViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8280A999B148109C9CA602C8 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9751B3F51FFB8BC20007D910 /* GeocodeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodeResponse.swift; sourceTree = "<group>"; };
+		975DA11D1FF93E0E002C94A6 /* GeocodeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodeRequest.swift; sourceTree = "<group>"; };
 		97EC41001FF5732500F14D2E /* NavigationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationService.swift; sourceTree = "<group>"; };
 		97EC41021FF573EE00F14D2E /* RouteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRequest.swift; sourceTree = "<group>"; };
 		97EC41041FF5741200F14D2E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 		97EC40FE1FF572A300F14D2E /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				975DA11D1FF93E0E002C94A6 /* GeocodeRequest.swift */,
 				97EC41021FF573EE00F14D2E /* RouteRequest.swift */,
 				97EC41041FF5741200F14D2E /* BaseRequest.swift */,
 			);
@@ -170,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				97EC41061FF5742200F14D2E /* BaseResponse.swift */,
+				9751B3F51FFB8BC20007D910 /* GeocodeResponse.swift */,
 				97EC41141FF6493600F14D2E /* RouteResponse.swift */,
 			);
 			path = Responses;
@@ -456,6 +462,8 @@
 			files = (
 				97EC41111FF5756200F14D2E /* NavigationViewModel.swift in Sources */,
 				97EC41071FF5742300F14D2E /* BaseResponse.swift in Sources */,
+				975DA11E1FF93E0F002C94A6 /* GeocodeRequest.swift in Sources */,
+				9751B3F61FFB8BC20007D910 /* GeocodeResponse.swift in Sources */,
 				97EC41151FF6493600F14D2E /* RouteResponse.swift in Sources */,
 				7890752AA337E205AE19CAA7 /* Localizable.strings in Sources */,
 				94548C59FDC57208A89BF9C2 /* StoryboardHelper.swift in Sources */,

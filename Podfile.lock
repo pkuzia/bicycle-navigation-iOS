@@ -30,6 +30,7 @@ PODS:
   - SwifterSwift/Foundation (4.1.0)
   - SwifterSwift/SwiftStdlib (4.1.0)
   - SwifterSwift/UIKit (4.1.0)
+  - SwiftSpinner (1.5.0)
 
 DEPENDENCIES:
   - GoogleMaps
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - Moya-ObjectMapper
   - ObjectMapper (~> 2.2)
   - SwifterSwift
+  - SwiftSpinner
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
@@ -46,7 +48,8 @@ SPEC CHECKSUMS:
   ObjectMapper: 63cfe41bc6f8e7c8f44344c49901b8ae7de14c52
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   SwifterSwift: 4d962b5d653760b85266832aff6ab6d08c1b7974
+  SwiftSpinner: 4c058c7a1d6b444dd2e1d70988ead40783097133
 
-PODFILE CHECKSUM: ace16a7fdb02fcc8af0578d503dc586e85037d33
+PODFILE CHECKSUM: d6f9d5d2047fd4fe2d61dec0106b659c384e0d56
 
 COCOAPODS: 1.2.0

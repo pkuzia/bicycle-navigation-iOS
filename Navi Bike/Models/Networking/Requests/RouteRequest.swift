@@ -26,7 +26,6 @@ public class RouteRequest: BaseRequest {
     
     var startPoint: Point
     var endPoint: Point
-    let key = "AIzaSyBM6cgLuiiHUVC9OIIUB7PcWy9jp5dj_TQ"
     
     init(startPoint: Point, endPoint: Point) {
         self.startPoint = startPoint
@@ -41,7 +40,7 @@ public class RouteRequest: BaseRequest {
         var parameters = [String: Any]()
         parameters["origin"] = startPoint.convertToRequest()
         parameters["destination"] = endPoint.convertToRequest()
-        parameters["key"] = key
+        parameters["key"] = directionsKey
         return parameters
     }
     

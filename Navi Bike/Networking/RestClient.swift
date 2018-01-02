@@ -37,6 +37,7 @@ private extension String {
 
 public enum RestClient {
     case route(RouteRequest)
+    case geocode(GeocodeRequest)
 }
 
 extension RestClient: TargetType {
@@ -46,6 +47,8 @@ extension RestClient: TargetType {
         switch self {
         case .route:
             return "directions/json"
+        case .geocode:
+            return "geocode/json"
         }
     }
     
@@ -57,6 +60,8 @@ extension RestClient: TargetType {
         switch self {
         case .route(let routeRequest):
             return routeRequest.getParameters()
+        case .geocode(let geocodeRequest):
+            return geocodeRequest.getParameters()
         }
     }
     
@@ -69,10 +74,7 @@ extension RestClient: TargetType {
     }
     
     public var validate: Bool {
-        switch self {
-        case .route:
-            return true
-        }
+        return true
     }
     
     public var sampleData: Data {

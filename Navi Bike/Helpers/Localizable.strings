@@ -6,3 +6,9 @@
   Copyright (c) 2017 pkuzia. All rights reserved.
 */
 
+/* Navigation screen */
+
+"start_point_placeholder" = "Punkt początkowy";
+"end_point_placeholder" = "Punkt końcowy";
+
+"geocode_spinner" = "Szukanie adresu...";
