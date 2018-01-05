@@ -17,6 +17,10 @@ enum MarkerType {
     case start, end
 }
 
+enum NavigationUIState {
+    case search, navi
+}
+
 class NavigationViewModel: BaseViewModel {
     
     // MARK: - Strings
@@ -25,6 +29,7 @@ class NavigationViewModel: BaseViewModel {
     let endPointPlaceholder = "end_point_placeholder".localized
     
     let geocodeSpinnerInfo = "geocode_spinner".localized
+    let naviSpinnerInfo = "navi_spinner".localized
     
     // MARK: - View Model Data
     
@@ -35,6 +40,7 @@ class NavigationViewModel: BaseViewModel {
     var routeResponse: RouteResponse?
     var startPointGeocode: GeocodeResponse?
     var endPointGeocode: GeocodeResponse?
+    var currentStep = 0
     
     // MARK: - Functions
     
@@ -48,6 +54,28 @@ class NavigationViewModel: BaseViewModel {
             if let lat = endPointGeocode?.lat, let lng = endPointGeocode?.lng {
                 return CLLocationCoordinate2D(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lng))
             }
+        }
+        return nil
+    }
+    
+    func getAPIPoint(type: MarkerType) -> Point? {
+        switch type {
+        case .start:
+            if let lat = startPointGeocode?.lat, let lng = startPointGeocode?.lng {
+                return Point(lat: lat, lng: lng)
+            }
+        case .end:
+            if let lat = endPointGeocode?.lat, let lng = endPointGeocode?.lng {
+                return Point(lat: lat, lng: lng)
+            }
+        }
+        return nil
+    }
+    
+    func getLocationCurrentStepEndPoint() -> CLLocation? {
+        if let currentStepObject = routeResponse?.routes?.steps?.item(at: currentStep), let lat = currentStepObject.endPoint?.lat,
+            let lng = currentStepObject.endPoint?.lng {
+            return CLLocation(latitude: lat, longitude: lng)
         }
         return nil
     }

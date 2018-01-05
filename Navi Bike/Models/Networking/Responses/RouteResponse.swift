@@ -70,8 +70,8 @@ class Step: BaseResponse {
 
 class GooglePoint: BaseResponse {
     
-    var lat: Float?
-    var lng: Float?
+    var lat: Double?
+    var lng: Double?
 
     override public func mapping(map: Map) {
         lat <- map["lat"]

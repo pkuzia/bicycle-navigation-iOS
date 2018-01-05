@@ -12,3 +12,4 @@
 "end_point_placeholder" = "Punkt końcowy";
 
 "geocode_spinner" = "Szukanie adresu...";
+"navi_spinner" = "Wyznaczanie tras...";

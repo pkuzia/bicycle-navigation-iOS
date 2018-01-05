@@ -9,10 +9,10 @@
 import Foundation
 
 struct Point {
-    var lat: Float
-    var lng: Float
+    var lat: Double
+    var lng: Double
     
-    init(lat: Float, lng: Float) {
+    init(lat: Double, lng: Double) {
         self.lat = lat
         self.lng = lng
     }
