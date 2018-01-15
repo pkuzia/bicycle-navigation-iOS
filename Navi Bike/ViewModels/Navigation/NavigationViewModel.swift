@@ -40,7 +40,7 @@ class NavigationViewModel: BaseViewModel {
     var routeResponse: RouteResponse?
     var startPointGeocode: GeocodeResponse?
     var endPointGeocode: GeocodeResponse?
-    var currentStep = 0
+    var currentStep = 1
     
     // MARK: - Functions
     
@@ -72,9 +72,9 @@ class NavigationViewModel: BaseViewModel {
         return nil
     }
     
-    func getLocationCurrentStepEndPoint() -> CLLocation? {
-        if let currentStepObject = routeResponse?.routes?.steps?.item(at: currentStep), let lat = currentStepObject.endPoint?.lat,
-            let lng = currentStepObject.endPoint?.lng {
+    func getLocationCurrentStepStartPoint() -> CLLocation? {
+        if let currentStepObject = routeResponse?.routes?.steps?.item(at: currentStep), let lat = currentStepObject.startPoint?.lat,
+            let lng = currentStepObject.startPoint?.lng {
             return CLLocation(latitude: lat, longitude: lng)
         }
         return nil

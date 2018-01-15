@@ -10,13 +10,28 @@ import UIKit
 import GoogleMaps
 import SwiftSpinner
 
+enum TopViewState {
+    case search, navigationDetails
+}
+
 class NavigationViewController: BaseViewController {
     
     // MARK: - Outlets
     
     @IBOutlet weak var mapView: GMSMapView!
+    
+    @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var startPointTextField: UITextField!
     @IBOutlet weak var endPointTextField: UITextField!
+    
+    @IBOutlet weak var routesView: UIView!
+    @IBOutlet weak var startAddress: UILabel!
+    @IBOutlet weak var endAddress: UILabel!
+    
+    @IBOutlet weak var freeRouteOption: UIButton!
+    @IBOutlet weak var optimalRouteOption: UIButton!
+    @IBOutlet weak var fastestRouteOption: UIButton!
+    
     @IBOutlet weak var naviButton: UIButton!
     
     @IBOutlet weak var bottomRouteView: UIView!
@@ -50,10 +65,10 @@ class NavigationViewController: BaseViewController {
     
     fileprivate func initUI() {
         initMapView()
-        startPointTextField.placeholder = navigationViewModel.startPointPlaceholder
-        endPointTextField.placeholder = navigationViewModel.endPointPlaceholder
-        startPointTextField.delegate = self
-        endPointTextField.delegate = self
+        initSearchView()
+        initRoutesView()
+        setTopView(to: .search)
+        
         
         naviButton.layer.cornerRadius = naviButton.frame.width / 2
         naviButton.backgroundColor = StyleKit.colorType(color: .baseGreenColor)
@@ -61,6 +76,49 @@ class NavigationViewController: BaseViewController {
         bottomRouteView.alpha = 0
         
         mockFunc()
+    }
+    
+    fileprivate func initSearchView() {
+        startPointTextField.placeholder = navigationViewModel.startPointPlaceholder
+        endPointTextField.placeholder = navigationViewModel.endPointPlaceholder
+        startPointTextField.delegate = self
+        endPointTextField.delegate = self
+    }
+    
+    fileprivate func initRoutesView() {
+        freeRouteOption.layer.cornerRadius = freeRouteOption.frame.width / 2
+        freeRouteOption.backgroundColor = UIColor.white
+        freeRouteOption.tintColor = StyleKit.colorType(color: .baseGreenColor)
+        freeRouteOption.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        
+        optimalRouteOption.layer.cornerRadius = freeRouteOption.frame.width / 2
+        optimalRouteOption.backgroundColor = UIColor.white
+        optimalRouteOption.tintColor = StyleKit.colorType(color: .baseGreenColor)
+        optimalRouteOption.imageEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        
+        fastestRouteOption.layer.cornerRadius = freeRouteOption.frame.width / 2
+        fastestRouteOption.backgroundColor = UIColor.white
+        fastestRouteOption.tintColor = StyleKit.colorType(color: .baseGreenColor)
+        fastestRouteOption.imageEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    }
+    
+    fileprivate func setTopView(to state: TopViewState) {
+        switch state {
+        case .navigationDetails:
+            searchView.alpha = 0.0
+            routesView.alpha = 1.0
+            if let startPointAddress = startPointTextField.text {
+                startAddress.attributedText = StyleKit.attributedText(text: startPointAddress, attribute: .naviDetailsAddress)
+            }
+            if let endPointAddress = endPointTextField.text {
+                endAddress.attributedText = StyleKit.attributedText(text: endPointAddress, attribute: .naviDetailsAddress)
+            }
+        case .search:
+            routesView.alpha = 0.0
+            searchView.alpha = 1.0
+            startPointTextField.text = ""
+            endPointTextField.text = ""
+        }
     }
     
     fileprivate func mockFunc() {
@@ -128,6 +186,7 @@ class NavigationViewController: BaseViewController {
             SwiftSpinner.show(navigationViewModel.naviSpinnerInfo)
             navigationViewModel.navigationRoute(startPoint: startPoint, endPoint: endPoint, completionHandler: { _ in
                 SwiftSpinner.hide()
+                self.setTopView(to: .navigationDetails)
                 self.showRouteOnMap()
             })
         }
@@ -203,8 +262,15 @@ extension NavigationViewController: UITextFieldDelegate {
 
 extension NavigationViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let currentStepEndPointLocation = navigationViewModel.getLocationCurrentStepEndPoint() {
-            print(locations.item(at: 0)?.distance(from: currentStepEndPointLocation))
+        let minDistance = 5.0
+        if let currentStepEndPointLocation = navigationViewModel.getLocationCurrentStepStartPoint() {
+            print((locations.item(at: 0)?.distance(from: currentStepEndPointLocation))!)
+    
+            if let distance = locations.item(at: 0)?.distance(from: currentStepEndPointLocation),
+                distance < minDistance {
+                navigationViewModel.currentStep += 1
+                updateBottomRouteView()
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 import SwifterSwift
 
 public enum Attribute {
-    case currentHintLabel, nextHintLabel
+    case currentHintLabel, nextHintLabel, naviDetailsAddress
 }
 
 public enum Color {
@@ -29,6 +29,9 @@ class StyleKit {
             attributedDictionary =  attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 15, weight: UIFontWeightLight))
         case .nextHintLabel:
             attributedDictionary =  attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 12, weight: UIFontWeightLight))
+        case .naviDetailsAddress:
+            attributedDictionary =  attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium),
+                                                   alignment: .center)
         }
         return NSAttributedString(string: text, attributes: attributedDictionary)
     }
