@@ -151,11 +151,11 @@ class NavigationViewController: BaseViewController {
     
     fileprivate func updateBottomRouteView() {
         if let currentHintValue = navigationViewModel.routeResponse?.routes?.steps?.item(at: navigationViewModel.currentStep)?.instructions {
-            currentHint.attributedText = StyleKit.attributedText(text: currentHintValue, attribute: .currentHintLabel)
+            currentHint.attributedText = StyleKit.attributedText(text: currentHintValue.removeHtmlFromString(), attribute: .currentHintLabel)
         }
         
         if let nextHintValue = navigationViewModel.routeResponse?.routes?.steps?.item(at: navigationViewModel.currentStep + 1)?.instructions {
-            nextHint.attributedText = StyleKit.attributedText(text: nextHintValue, attribute: .nextHintLabel)
+            nextHint.attributedText = StyleKit.attributedText(text: nextHintValue.removeHtmlFromString(), attribute: .nextHintLabel)
         }
     }
     

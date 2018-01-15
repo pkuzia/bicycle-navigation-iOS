@@ -26,9 +26,9 @@ class StyleKit {
         var attributedDictionary = [String: AnyObject]()
         switch attribute {
         case .currentHintLabel:
-            attributedDictionary =  attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 15, weight: UIFontWeightLight))
+            attributedDictionary =  attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 17, weight: UIFontWeightRegular))
         case .nextHintLabel:
-            attributedDictionary =  attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 12, weight: UIFontWeightLight))
+            attributedDictionary =  attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular))
         case .naviDetailsAddress:
             attributedDictionary =  attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium),
                                                    alignment: .center)
