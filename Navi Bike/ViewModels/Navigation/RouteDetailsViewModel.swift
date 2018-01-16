@@ -14,9 +14,11 @@ class RouteDetailsViewModel: BaseViewModel {
     
     let timeLabelTitle = "time_title".localized
     let priceLabelTitle = "price_title".localized
-    let distanceLabelTitle = "time_title".localized
+    let distanceLabelTitle = "distance_title".localized
     
     // MARK: - View Model Data
+    
+    var route: Route?
     
     // MARK: - Functions
 }

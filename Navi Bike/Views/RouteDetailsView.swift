@@ -32,6 +32,21 @@ class RouteDetailsView: UIView {
                                                            attribute: .routeDetailsTitle)
         distanceTitle.attributedText = StyleKit.attributedText(text: routeDetailsViewModel.distanceLabelTitle,
                                                            attribute: .routeDetailsTitle)
+        guard let route = routeDetailsViewModel.route else {
+            return
+        }
+        
+        if let duration = routeDetailsViewModel.route?.duration {
+            timeValue.attributedText = StyleKit.attributedText(text: duration, attribute: .routeDetailsValue)
+        }
+        
+//        if let price = routeDetailsViewModel.route?. {
+//            priceValue.attributedText = StyleKit.attributedText(text: price, attribute: .routeDetailsValue)
+//        }
+        
+        if let distance = routeDetailsViewModel.route?.distance {
+            distanceValue.attributedText = StyleKit.attributedText(text: distance, attribute: .routeDetailsValue)
+        }
     }
     
     // MARK: - User Interaction

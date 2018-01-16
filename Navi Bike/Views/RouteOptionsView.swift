@@ -43,6 +43,7 @@ class RouteOptionsView: UIView {
     }
     
     func setActiveButton(type: RouteType) {
+        unselectAllButtons()
         switch type {
         case .fastest:
             fastestRouteOption.isHighlighted = true

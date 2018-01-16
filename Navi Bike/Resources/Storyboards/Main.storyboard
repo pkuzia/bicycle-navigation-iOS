@@ -49,7 +49,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
                                         <state key="normal" image="compass"/>
                                         <connections>
-                                            <action selector="naviButtonClickHandler:" destination="Kad-9s-FGc" eventType="touchUpInside" id="YSY-jG-6Fd"/>
+                                            <action selector="searchButtonClickHandler:" destination="Kad-9s-FGc" eventType="touchUpInside" id="YSY-jG-6Fd"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -61,6 +61,27 @@
                                     <constraint firstItem="i3k-st-76L" firstAttribute="centerY" secondItem="Sq3-iv-Y3d" secondAttribute="centerY" id="co9-OY-nFG"/>
                                     <constraint firstItem="i3k-st-76L" firstAttribute="centerX" secondItem="Sq3-iv-Y3d" secondAttribute="centerX" id="jeh-xZ-5Ss"/>
                                     <constraint firstAttribute="height" constant="65" id="sZd-37-wZc"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h02-HO-qXR">
+                                <rect key="frame" x="290" y="492" width="65" height="65"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8J-gh-wV9">
+                                        <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                        <state key="normal" image="navi"/>
+                                        <connections>
+                                            <action selector="startNaviButtonClick:" destination="Kad-9s-FGc" eventType="touchUpInside" id="5c6-6d-TaO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="B8J-gh-wV9" firstAttribute="height" secondItem="h02-HO-qXR" secondAttribute="height" id="0qZ-dC-79E"/>
+                                    <constraint firstAttribute="height" constant="65" id="9yc-5h-ZJS"/>
+                                    <constraint firstItem="B8J-gh-wV9" firstAttribute="width" secondItem="h02-HO-qXR" secondAttribute="width" id="XDv-1P-RAi"/>
+                                    <constraint firstItem="B8J-gh-wV9" firstAttribute="centerY" secondItem="h02-HO-qXR" secondAttribute="centerY" id="aCZ-jl-sXc"/>
+                                    <constraint firstItem="B8J-gh-wV9" firstAttribute="centerX" secondItem="h02-HO-qXR" secondAttribute="centerX" id="mQA-Ow-u32"/>
+                                    <constraint firstAttribute="width" constant="65" id="yh5-gz-Y8O"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wJV-Qy-pIR">
@@ -98,6 +119,9 @@
                                                             <constraint firstAttribute="width" constant="40" id="bgJ-f4-nLp"/>
                                                         </constraints>
                                                         <state key="normal" image="dolar"/>
+                                                        <connections>
+                                                            <action selector="freeRouteOptionClick:" destination="Kad-9s-FGc" eventType="touchUpInside" id="nL7-A0-ISv"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.28627450980392155" green="0.62745098039215685" blue="0.21568627450980393" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -112,6 +136,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqT-Hv-lT0">
                                                         <rect key="frame" x="42" y="9.5" width="40" height="40"/>
                                                         <state key="normal" image="walk"/>
+                                                        <connections>
+                                                            <action selector="optimalRouteOptionClick:" destination="Kad-9s-FGc" eventType="touchUpInside" id="biq-Qr-MKb"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.28627450980392155" green="0.62745098039215685" blue="0.21568627450980393" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -125,6 +152,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jf7-hw-UJj">
                                                         <rect key="frame" x="42" y="9.5" width="40" height="40"/>
                                                         <state key="normal" image="fast"/>
+                                                        <connections>
+                                                            <action selector="fastestRouteOptionClick:" destination="Kad-9s-FGc" eventType="touchUpInside" id="Xhd-xK-RLz"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.28627450980392155" green="0.62745098039215685" blue="0.21568627450980393" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -382,13 +412,16 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMO-hb-Llj">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMO-hb-Llj">
                                         <rect key="frame" x="10" y="25" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="g5b-b2-pv8"/>
                                             <constraint firstAttribute="height" constant="40" id="wCs-Rb-DQo"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" image="close"/>
+                                        <connections>
+                                            <action selector="closeButtonClick:" destination="Kad-9s-FGc" eventType="touchUpInside" id="Ket-wb-8ue"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.42995715141296387" green="0.75239759683609009" blue="0.36416074633598328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -418,6 +451,7 @@
                             <constraint firstAttribute="trailing" secondItem="wJV-Qy-pIR" secondAttribute="trailing" id="38T-pR-29T"/>
                             <constraint firstItem="wJV-Qy-pIR" firstAttribute="top" secondItem="0Xx-If-8Bl" secondAttribute="top" id="4Ea-e6-gRF"/>
                             <constraint firstItem="6KE-cr-Npa" firstAttribute="top" secondItem="Sq3-iv-Y3d" secondAttribute="bottom" constant="35" id="Cb0-9y-jEJ"/>
+                            <constraint firstItem="1ga-ko-KJQ" firstAttribute="top" secondItem="h02-HO-qXR" secondAttribute="bottom" constant="20" id="HNl-pA-hi6"/>
                             <constraint firstItem="6KE-cr-Npa" firstAttribute="top" secondItem="CsU-Zf-Smg" secondAttribute="bottom" id="JZq-Si-cY0"/>
                             <constraint firstItem="CsU-Zf-Smg" firstAttribute="top" secondItem="wJV-Qy-pIR" secondAttribute="bottom" id="Mu9-Cn-bLj"/>
                             <constraint firstItem="1ga-ko-KJQ" firstAttribute="leading" secondItem="0Xx-If-8Bl" secondAttribute="leading" id="S79-KP-Faf"/>
@@ -427,6 +461,7 @@
                             <constraint firstItem="6KE-cr-Npa" firstAttribute="top" secondItem="lMv-xZ-TEn" secondAttribute="bottom" id="VIR-tj-ekd"/>
                             <constraint firstItem="CsU-Zf-Smg" firstAttribute="leading" secondItem="0Xx-If-8Bl" secondAttribute="leading" id="gtC-vd-zNH"/>
                             <constraint firstItem="6KE-cr-Npa" firstAttribute="top" secondItem="1ga-ko-KJQ" secondAttribute="bottom" id="pbI-RI-1JF"/>
+                            <constraint firstAttribute="trailing" secondItem="h02-HO-qXR" secondAttribute="trailing" constant="20" id="saA-sz-OUT"/>
                             <constraint firstAttribute="trailing" secondItem="Sq3-iv-Y3d" secondAttribute="trailing" constant="25" id="veR-kc-0H9"/>
                             <constraint firstItem="wJV-Qy-pIR" firstAttribute="leading" secondItem="0Xx-If-8Bl" secondAttribute="leading" id="zeZ-lM-K6k"/>
                         </constraints>
@@ -436,10 +471,11 @@
                     <connections>
                         <outlet property="hintsView" destination="lMv-xZ-TEn" id="5Zi-EF-w5D"/>
                         <outlet property="mapView" destination="CsU-Zf-Smg" id="bQ6-Gd-dN8"/>
-                        <outlet property="naviButton" destination="i3k-st-76L" id="nm2-fx-Kyl"/>
                         <outlet property="routeDetailsView" destination="1ga-ko-KJQ" id="2b2-yu-SdV"/>
                         <outlet property="routeOptionsView" destination="g2h-07-9HW" id="aYD-gC-nGv"/>
+                        <outlet property="searchButton" destination="i3k-st-76L" id="nm2-fx-Kyl"/>
                         <outlet property="searchView" destination="wUg-KK-mg3" id="7aU-tS-0n7"/>
+                        <outlet property="startNaviButton" destination="B8J-gh-wV9" id="13Z-ln-ckd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3y-4S-CaC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -449,10 +485,12 @@
     </scenes>
     <resources>
         <image name="arrow" width="48" height="48"/>
+        <image name="close" width="50" height="50"/>
         <image name="compass" width="48" height="48"/>
         <image name="dolar" width="48" height="48"/>
         <image name="fast" width="48" height="48"/>
         <image name="marker" width="48" height="48"/>
+        <image name="navi" width="48" height="48"/>
         <image name="point" width="48" height="48"/>
         <image name="walk" width="48" height="48"/>
     </resources>

@@ -30,7 +30,8 @@ class NavigationViewController: BaseViewController {
     @IBOutlet weak var hintsView: HintsView!
     @IBOutlet weak var routeDetailsView: RouteDetailsView!
     
-    @IBOutlet weak var naviButton: UIButton!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var startNaviButton: UIButton!
     
     var camera: GMSCameraPosition?
     let locationManager = CLLocationManager()
@@ -74,7 +75,10 @@ class NavigationViewController: BaseViewController {
         case .hintsDetails:
             hintsView.alpha = 1.0
             routeDetailsView.alpha = 0.0
+            startNaviButton.alpha = 0.0
         case .routeDetails:
+            routeDetailsView.routeDetailsViewModel.route = navigationViewModel.getSelectedRoute()
+            routeDetailsView.initView()
             hintsView.alpha = 0.0
             routeDetailsView.alpha = 1.0
         }
@@ -84,6 +88,8 @@ class NavigationViewController: BaseViewController {
         switch state {
         case .navigationDetails:
             searchView.alpha = 0.0
+            searchButton.alpha = 0.0
+            startNaviButton.alpha = 1.0
             routeOptionsView.alpha = 1.0
             if let startPointAddress = searchView.startPointTextField.text, let endPointAddress = searchView.endPointTextField.text  {
                 routeOptionsView.initView(startAddressText: startPointAddress, endAddressText: endPointAddress)
@@ -91,6 +97,8 @@ class NavigationViewController: BaseViewController {
         case .search:
             routeOptionsView.alpha = 0.0
             searchView.alpha = 1.0
+            searchButton.alpha = 1.0
+            startNaviButton.alpha = 0.0
             searchView.resetTextFields()
         }
     }
@@ -126,7 +134,7 @@ class NavigationViewController: BaseViewController {
         }
     }
     
-    fileprivate func updateBottomRouteView() {
+    fileprivate func updateHintsView() {
         guard let selectedRoute = navigationViewModel.getSelectedRoute() else {
             return
         }
@@ -157,8 +165,33 @@ class NavigationViewController: BaseViewController {
             })
         }
     }
+    @IBAction func closeButtonClick(_ sender: Any) {
+    }
     
-    @IBAction func naviButtonClickHandler(_ sender: Any) {
+    @IBAction func freeRouteOptionClick(_ sender: Any) {
+        navigationViewModel.selectedRoute = .free
+        routeOptionsView.setActiveButton(type: .free)
+        optionButtonChanged()
+    }
+    
+    @IBAction func optimalRouteOptionClick(_ sender: Any) {
+        navigationViewModel.selectedRoute = .optimal
+        routeOptionsView.setActiveButton(type: .optimal)
+        optionButtonChanged()
+    }
+
+    @IBAction func fastestRouteOptionClick(_ sender: Any) {
+        navigationViewModel.selectedRoute = .fastest
+        routeOptionsView.setActiveButton(type: .fastest)
+        optionButtonChanged()
+    }
+    
+    @IBAction func startNaviButtonClick(_ sender: Any) {
+        setBottomView(to: .hintsDetails)
+        startNavigation()
+    }
+    
+    @IBAction func searchButtonClickHandler(_ sender: Any) {
         if let startPoint = navigationViewModel.getAPIPoint(type: .start), let endPoint = navigationViewModel.getAPIPoint(type: .end) {
             SwiftSpinner.show(navigationViewModel.naviSpinnerInfo)
             navigationViewModel.navigationRoute(startPoint: startPoint, endPoint: endPoint, completionHandler: { _ in
@@ -174,6 +207,19 @@ class NavigationViewController: BaseViewController {
     }
     
     // MARK: - Additional Helpers
+    
+    fileprivate func optionButtonChanged() {
+        showRouteOnMap()
+        setBottomView(to: .routeDetails)
+    }
+    
+    fileprivate func startNavigation() {
+        if let startMarker = navigationViewModel.mapViewMarkers.item(at: 0) {
+            mapView.animate(to: GMSCameraPosition(target: startMarker.position, zoom: 15, bearing: 0, viewingAngle: 0))
+        }
+        navigationViewModel.currentStep = 0
+        updateHintsView()
+    }
     
     fileprivate func showRouteOnMap() {
         guard let route = navigationViewModel.getSelectedRoute(), let path = route.poliline else {
@@ -202,8 +248,11 @@ class NavigationViewController: BaseViewController {
         mapView.isMyLocationEnabled = true
 //        mapView.settings.myLocationButton = true
         
-        naviButton.layer.cornerRadius = naviButton.frame.width / 2
-        naviButton.backgroundColor = StyleKit.colorType(color: .baseGreenColor)
+        searchButton.layer.cornerRadius = searchButton.frame.width / 2
+        searchButton.backgroundColor = StyleKit.colorType(color: .baseGreenColor)
+        startNaviButton.layer.cornerRadius = searchButton.frame.width / 2
+        startNaviButton.backgroundColor = StyleKit.colorType(color: .baseGreenColor)
+        startNaviButton.imageEdgeInsets = UIEdgeInsets(top: 15, left: 17, bottom: 17, right: 17)
     }
     
     fileprivate func addRouteMarkersToMap() {
@@ -213,6 +262,7 @@ class NavigationViewController: BaseViewController {
         guard let markerPositions = navigationViewModel.getRoutePoints() else {
             return
         }
+        navigationViewModel.mapViewMarkers.removeAll()
         startMarker.position = markerPositions.0
         endMarker.position = markerPositions.1
         
@@ -222,6 +272,7 @@ class NavigationViewController: BaseViewController {
         var bounds = GMSCoordinateBounds()
         for marker in [startMarker, endMarker] {
             bounds = bounds.includingCoordinate(marker.position)
+            navigationViewModel.mapViewMarkers.append(marker)
         }
         let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
         mapView.animate(with: update)
@@ -263,7 +314,7 @@ extension NavigationViewController: CLLocationManagerDelegate {
             if let distance = locations.item(at: 0)?.distance(from: currentStepEndPointLocation),
                 distance < minDistance {
                 navigationViewModel.currentStep += 1
-                updateBottomRouteView()
+                updateHintsView()
             }
         }
     }
