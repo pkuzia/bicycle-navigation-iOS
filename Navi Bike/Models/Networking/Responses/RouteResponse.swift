@@ -11,16 +11,20 @@ import ObjectMapper
 
 class RouteResponse: BaseResponse {
     
-    var polyline: String?
-    var routes: Route?
+    var optimalRoute: Route?
+    var fastestRoute: Route?
+    var freeRoute: Route?
     
     override public func mapping(map: Map) {
-        polyline <- map["routes.0.overview_polyline.points"]
-        routes <- map["routes.0.legs.0"]
+        optimalRoute <- map["optimal"]
+        fastestRoute <- map["fastest"]
+        freeRoute <- map["free"]
     }
 }
 
 class Route: BaseResponse {
+    
+    var poliline: String?
     
     var distance: String?
     var duration: String?
@@ -34,16 +38,18 @@ class Route: BaseResponse {
     var steps: [Step]?
     
     override public func mapping(map: Map) {
-        distance <- map["distance.text"]
-        duration <- map["duration.text"]
+        poliline <- map["polyline"]
         
-        endPoint        <- map["end_location"]
-        endPointAddress <- map["end_address"]
+        distance <- map["route.distance"]
+        duration <- map["route.duration"]
         
-        startPoint        <- map["start_location"]
-        startPointAddress <- map["start_address"]
+        endPoint        <- map["route.endPoint"]
+        endPointAddress <- map["route.endPointAddress"]
         
-        steps <- map["steps"]
+        startPoint        <- map["route.startPoint"]
+        startPointAddress <- map["route.startPointAddress"]
+        
+        steps <- map["route.steps"]
     }
 }
 
@@ -58,13 +64,13 @@ class Step: BaseResponse {
     var instructions: String?
     
     override public func mapping(map: Map) {
-        distance <- map["distance.text"]
-        duration <- map["duration.text"]
+        distance <- map["distance"]
+        duration <- map["duration"]
         
-        endPoint   <- map["end_location"]
-        startPoint <- map["start_location"]
+        endPoint   <- map["endPoint"]
+        startPoint <- map["startPoint"]
         
-        instructions <- map["html_instructions"]
+        instructions <- map["instructions"]
     }
 }
 

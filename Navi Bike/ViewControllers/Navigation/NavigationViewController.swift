@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import SwiftSpinner
+import AVFoundation
 
 enum TopViewState {
     case search, navigationDetails
@@ -40,6 +41,7 @@ class NavigationViewController: BaseViewController {
     
     var camera: GMSCameraPosition?
     let locationManager = CLLocationManager()
+    let speechSynthesizer = AVSpeechSynthesizer()
     let navigationViewModel = NavigationViewModel()
     
     // MARK: - View Lifecycle
@@ -68,7 +70,6 @@ class NavigationViewController: BaseViewController {
         initSearchView()
         initRoutesView()
         setTopView(to: .search)
-        
         
         naviButton.layer.cornerRadius = naviButton.frame.width / 2
         naviButton.backgroundColor = StyleKit.colorType(color: .baseGreenColor)
@@ -182,6 +183,14 @@ class NavigationViewController: BaseViewController {
     }
     
     @IBAction func naviButtonClickHandler(_ sender: Any) {
+
+//        var bounds = GMSCoordinateBounds()
+//        for marker in navigationViewModel.mapViewMarkers {
+//            bounds = bounds.includingCoordinate(marker.position)
+//        }
+//        let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+//        mapView.animate(with: update)
+        
         if let startPoint = navigationViewModel.getAPIPoint(type: .start), let endPoint = navigationViewModel.getAPIPoint(type: .end) {
             SwiftSpinner.show(navigationViewModel.naviSpinnerInfo)
             navigationViewModel.navigationRoute(startPoint: startPoint, endPoint: endPoint, completionHandler: { _ in
@@ -190,6 +199,8 @@ class NavigationViewController: BaseViewController {
                 self.showRouteOnMap()
             })
         }
+//        let speechUtterance = AVSpeechUtterance(string: "Przemi is the best and notorious gansgter in the world")
+//        speechSynthesizer.speak(speechUtterance)
     }
     
     // MARK: - Additional Helpers
@@ -239,6 +250,7 @@ class NavigationViewController: BaseViewController {
         }
         marker.position = markerPosition
         marker.map = mapView
+        navigationViewModel.mapViewMarkers.append(marker)
         
         mapView.animate(to: GMSCameraPosition(target: markerPosition, zoom: 15, bearing: 0, viewingAngle: 0))
     }

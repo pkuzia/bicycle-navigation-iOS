@@ -30,7 +30,6 @@
 		97EC41151FF6493600F14D2E /* RouteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41141FF6493600F14D2E /* RouteResponse.swift */; };
 		97EEE93E2006289E005A1297 /* mapstogpx20180110_105501.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 97EEE93D2006289D005A1297 /* mapstogpx20180110_105501.gpx */; };
 		9FA9F3E3603D43CFC5AB6B33 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F703659E5B4BFC4B570798 /* BaseViewModel.swift */; };
-		AAE4C553BE6EA3C3FE2FBA8D /* RepositoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8BD68456C586FD8C0DACE /* RepositoryService.swift */; };
 		B7A7F6FD64F5BB17B7382E7F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEAE905292044560ACC9F1F /* Foundation.framework */; };
 		FE1CF6D1F4B79B4B68285B3F /* Pods_Navi_Bike.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1E627553D6A70360A8F68 /* Pods_Navi_Bike.framework */; };
 /* End PBXBuildFile section */
@@ -76,7 +75,6 @@
 		C1D12B236391C04FA7ACEE01 /* RestClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
 		D181FEE673FA0C7E1D2EEA5B /* String.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D7401AC31DADE04A1B6571CF /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D7C8BD68456C586FD8C0DACE /* RepositoryService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RepositoryService.swift; sourceTree = "<group>"; };
 		FC67C77839DCC3F68E3B9A44 /* Pods-Navi Bike.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navi Bike.release.xcconfig"; path = "Pods/Target Support Files/Pods-Navi Bike/Pods-Navi Bike.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -263,7 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				5B1EA711FF7682725CF22DBD /* BaseService.swift */,
-				D7C8BD68456C586FD8C0DACE /* RepositoryService.swift */,
 				97EC41001FF5732500F14D2E /* NavigationService.swift */,
 			);
 			path = Services;
@@ -486,7 +483,6 @@
 				277BBDD52DD6888F66E53139 /* BaseService.swift in Sources */,
 				97EC41131FF5758600F14D2E /* NavigationViewController.swift in Sources */,
 				97EC410C1FF5751100F14D2E /* MainNavigationViewController.swift in Sources */,
-				AAE4C553BE6EA3C3FE2FBA8D /* RepositoryService.swift in Sources */,
 				97EC41011FF5732500F14D2E /* NavigationService.swift in Sources */,
 				9FA9F3E3603D43CFC5AB6B33 /* BaseViewModel.swift in Sources */,
 				97EC41051FF5741200F14D2E /* BaseRequest.swift in Sources */,

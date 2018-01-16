@@ -41,6 +41,7 @@ class NavigationViewModel: BaseViewModel {
     var startPointGeocode: GeocodeResponse?
     var endPointGeocode: GeocodeResponse?
     var currentStep = 1
+    var mapViewMarkers: [GMSMarker] = []
     
     // MARK: - Functions
     

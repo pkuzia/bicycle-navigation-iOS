@@ -9,16 +9,19 @@
 import Foundation
 
 struct Point {
-    var lat: Double
-    var lng: Double
+    var latitude: Double
+    var longitude: Double
     
     init(lat: Double, lng: Double) {
-        self.lat = lat
-        self.lng = lng
+        self.latitude = lat
+        self.longitude = lng
     }
     
-    func convertToRequest() -> String {
-        return "\(lat), \(lng)"
+    func toRequest() -> [String: Any]? {
+        var parameters = [String: Any]()
+        parameters["latitude"] = latitude
+        parameters["longitude"] = longitude
+        return parameters
     }
 }
 
@@ -33,15 +36,14 @@ public class RouteRequest: BaseRequest {
     }
     
     fileprivate func getParametersBody() -> [String: Any]? {
-        return nil
+        var parameters = [String: Any]()
+        parameters["start"] = startPoint.toRequest()
+        parameters["destination"] = endPoint.toRequest()
+        return parameters
     }
     
     fileprivate func getParametersQuery() -> [String: Any]? {
-        var parameters = [String: Any]()
-        parameters["origin"] = startPoint.convertToRequest()
-        parameters["destination"] = endPoint.convertToRequest()
-        parameters["key"] = directionsKey
-        return parameters
+        return nil
     }
     
     public func getParameters() -> [String: Any]? {

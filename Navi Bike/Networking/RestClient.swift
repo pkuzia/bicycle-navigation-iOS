@@ -25,8 +25,10 @@ private func JSONResponseDataFormatter(_ data: Data) -> Data {
     }
 }
 
-let googleMapsProvider = MoyaProvider<RestClient>(plugins: [NetworkLoggerPlugin(verbose: true, responseDataFormatter: JSONResponseDataFormatter)])
-
+let googleMapsProvider = MoyaProvider<GoogleMapsRestClient>(plugins: [NetworkLoggerPlugin(verbose: true,
+                                                                                          responseDataFormatter: JSONResponseDataFormatter)])
+let backendProvider = MoyaProvider<BackendRestClient>(plugins: [NetworkLoggerPlugin(verbose: true,
+                                                                                          responseDataFormatter: JSONResponseDataFormatter)])
 // MARK: - Provider support
 
 private extension String {
@@ -35,18 +37,57 @@ private extension String {
     }
 }
 
-public enum RestClient {
-    case route(RouteRequest)
+public enum GoogleMapsRestClient {
     case geocode(GeocodeRequest)
 }
 
-extension RestClient: TargetType {
-    public var baseURL: URL { return URL(string: "https://maps.googleapis.com/maps/api/")! }
+public enum BackendRestClient {
+    case route(RouteRequest)
+}
+
+extension BackendRestClient: TargetType {
+    public var baseURL: URL { return URL(string: "http://d0dc36a8.ngrok.io/")! }
     
     public var path: String {
         switch self {
         case .route:
-            return "directions/json"
+            return "route"
+        }
+    }
+    
+    public var method: Moya.Method {
+        return .post
+    }
+    
+    public var parameters: [String: Any]? {
+        switch self {
+        case .route(let routeRequest):
+            return routeRequest.getParameters()
+        }
+    }
+    
+    public var parameterEncoding: ParameterEncoding {
+        return CompositeEncoding()
+    }
+    
+    public var task: Task {
+        return .request
+    }
+    
+    public var validate: Bool {
+        return true
+    }
+    
+    public var sampleData: Data {
+        return "Sample Data.".data(using: String.Encoding.utf8)!
+    }
+}
+
+extension GoogleMapsRestClient: TargetType {
+    public var baseURL: URL { return URL(string: "https://maps.googleapis.com/maps/api/")! }
+    
+    public var path: String {
+        switch self {
         case .geocode:
             return "geocode/json"
         }
@@ -58,8 +99,6 @@ extension RestClient: TargetType {
     
     public var parameters: [String: Any]? {
         switch self {
-        case .route(let routeRequest):
-            return routeRequest.getParameters()
         case .geocode(let geocodeRequest):
             return geocodeRequest.getParameters()
         }
