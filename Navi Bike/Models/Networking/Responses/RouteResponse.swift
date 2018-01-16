@@ -78,7 +78,7 @@ class GooglePoint: BaseResponse {
     
     var lat: Double?
     var lng: Double?
-
+    
     override public func mapping(map: Map) {
         lat <- map["lat"]
         lng <- map["lng"]

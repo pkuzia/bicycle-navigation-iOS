@@ -15,29 +15,22 @@ enum TopViewState {
     case search, navigationDetails
 }
 
+enum BottomViewState {
+    case routeDetails, hintsDetails, empty
+}
+
 class NavigationViewController: BaseViewController {
     
     // MARK: - Outlets
     
     @IBOutlet weak var mapView: GMSMapView!
     
-    @IBOutlet weak var searchView: UIView!
-    @IBOutlet weak var startPointTextField: UITextField!
-    @IBOutlet weak var endPointTextField: UITextField!
-    
-    @IBOutlet weak var routesView: UIView!
-    @IBOutlet weak var startAddress: UILabel!
-    @IBOutlet weak var endAddress: UILabel!
-    
-    @IBOutlet weak var freeRouteOption: UIButton!
-    @IBOutlet weak var optimalRouteOption: UIButton!
-    @IBOutlet weak var fastestRouteOption: UIButton!
+    @IBOutlet weak var searchView: SearchView!
+    @IBOutlet weak var routeOptionsView: RouteOptionsView!
+    @IBOutlet weak var hintsView: HintsView!
+    @IBOutlet weak var routeDetailsView: RouteDetailsView!
     
     @IBOutlet weak var naviButton: UIButton!
-    
-    @IBOutlet weak var bottomRouteView: UIView!
-    @IBOutlet weak var currentHint: UILabel!
-    @IBOutlet weak var nextHint: UILabel!
     
     var camera: GMSCameraPosition?
     let locationManager = CLLocationManager()
@@ -67,103 +60,86 @@ class NavigationViewController: BaseViewController {
     
     fileprivate func initUI() {
         initMapView()
-        initSearchView()
-        initRoutesView()
         setTopView(to: .search)
-        
-        naviButton.layer.cornerRadius = naviButton.frame.width / 2
-        naviButton.backgroundColor = StyleKit.colorType(color: .baseGreenColor)
-        
-        bottomRouteView.alpha = 0
+        setBottomView(to: .empty)
         
         mockFunc()
     }
     
-    fileprivate func initSearchView() {
-        startPointTextField.placeholder = navigationViewModel.startPointPlaceholder
-        endPointTextField.placeholder = navigationViewModel.endPointPlaceholder
-        startPointTextField.delegate = self
-        endPointTextField.delegate = self
-    }
-    
-    fileprivate func initRoutesView() {
-        freeRouteOption.layer.cornerRadius = freeRouteOption.frame.width / 2
-        freeRouteOption.backgroundColor = UIColor.white
-        freeRouteOption.tintColor = StyleKit.colorType(color: .baseGreenColor)
-        freeRouteOption.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        
-        optimalRouteOption.layer.cornerRadius = freeRouteOption.frame.width / 2
-        optimalRouteOption.backgroundColor = UIColor.white
-        optimalRouteOption.tintColor = StyleKit.colorType(color: .baseGreenColor)
-        optimalRouteOption.imageEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        
-        fastestRouteOption.layer.cornerRadius = freeRouteOption.frame.width / 2
-        fastestRouteOption.backgroundColor = UIColor.white
-        fastestRouteOption.tintColor = StyleKit.colorType(color: .baseGreenColor)
-        fastestRouteOption.imageEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    fileprivate func setBottomView(to state: BottomViewState) {
+        switch state {
+        case .empty:
+            hintsView.alpha = 0.0
+            routeDetailsView.alpha = 0.0
+        case .hintsDetails:
+            hintsView.alpha = 1.0
+            routeDetailsView.alpha = 0.0
+        case .routeDetails:
+            hintsView.alpha = 0.0
+            routeDetailsView.alpha = 1.0
+        }
     }
     
     fileprivate func setTopView(to state: TopViewState) {
         switch state {
         case .navigationDetails:
             searchView.alpha = 0.0
-            routesView.alpha = 1.0
-            if let startPointAddress = startPointTextField.text {
-                startAddress.attributedText = StyleKit.attributedText(text: startPointAddress, attribute: .naviDetailsAddress)
-            }
-            if let endPointAddress = endPointTextField.text {
-                endAddress.attributedText = StyleKit.attributedText(text: endPointAddress, attribute: .naviDetailsAddress)
+            routeOptionsView.alpha = 1.0
+            if let startPointAddress = searchView.startPointTextField.text, let endPointAddress = searchView.endPointTextField.text  {
+                routeOptionsView.initView(startAddressText: startPointAddress, endAddressText: endPointAddress)
             }
         case .search:
-            routesView.alpha = 0.0
+            routeOptionsView.alpha = 0.0
             searchView.alpha = 1.0
-            startPointTextField.text = ""
-            endPointTextField.text = ""
+            searchView.resetTextFields()
         }
     }
     
     fileprivate func mockFunc() {
-        startPointTextField.text = "Stare Babice, Graniczna 25"
-        endPointTextField.text = "Politechnika Warszawska"
-        
-        navigationViewModel.geocode(address: startPointTextField.text!, startPoint: true, completionHandler: { result in
+        searchView.startPointTextField.text = "Człuchowska 25, Warszawa"
+        searchView.endPointTextField.text = "Nowowiejska 15/19, Warszawa"
+
+        navigationViewModel.geocode(address: searchView.startPointTextField.text!, startPoint: true, completionHandler: { result in
             SwiftSpinner.hide()
             self.addMarkerToMap(type: .start)
         })
-        
-        navigationViewModel.geocode(address: endPointTextField.text!, startPoint: false, completionHandler: { result in
+
+        navigationViewModel.geocode(address: searchView.endPointTextField.text!, startPoint: false, completionHandler: { result in
             SwiftSpinner.hide()
             self.addMarkerToMap(type: .end)
         })
     }
-    
+
     fileprivate func changeUI(state: NavigationUIState) {
         UIView.animate(withDuration: 1.0) {
             switch state {
             case .navi:
-                self.bottomRouteView.alpha = 1.0
-                self.naviButton.alpha = 0.0
+                self.setTopView(to: .navigationDetails)
+                self.setBottomView(to: .hintsDetails)
+            case .routeOptions:
+                self.setTopView(to: .navigationDetails)
+                self.setBottomView(to: .routeDetails)
             case .search:
-                self.bottomRouteView.alpha = 0.0
-                self.naviButton.alpha = 1.0
+                self.setTopView(to: .search)
+                self.setBottomView(to: .empty)
             }
         }
     }
     
     fileprivate func updateBottomRouteView() {
-        if let currentHintValue = navigationViewModel.routeResponse?.routes?.steps?.item(at: navigationViewModel.currentStep)?.instructions {
-            currentHint.attributedText = StyleKit.attributedText(text: currentHintValue.removeHtmlFromString(), attribute: .currentHintLabel)
+        guard let selectedRoute = navigationViewModel.getSelectedRoute() else {
+            return
         }
-        
-        if let nextHintValue = navigationViewModel.routeResponse?.routes?.steps?.item(at: navigationViewModel.currentStep + 1)?.instructions {
-            nextHint.attributedText = StyleKit.attributedText(text: nextHintValue.removeHtmlFromString(), attribute: .nextHintLabel)
+        if let currentHintValue = selectedRoute.steps?.item(at: navigationViewModel.currentStep)?.instructions,
+            let nextHintValue = selectedRoute.steps?.item(at: navigationViewModel.currentStep + 1)?.instructions{
+            hintsView.setHints(current: currentHintValue, next: nextHintValue)
         }
     }
     
     // MARK: - User Interaction
     
     @IBAction func startPointSearch(_ sender: Any) {
-        if let startPointAddress = startPointTextField.text {
+        if let startPointAddress = searchView.startPointTextField.text {
             SwiftSpinner.show(navigationViewModel.geocodeSpinnerInfo, animated: true)
             navigationViewModel.geocode(address: startPointAddress, startPoint: true, completionHandler: { result in
                 SwiftSpinner.hide()
@@ -173,7 +149,7 @@ class NavigationViewController: BaseViewController {
     }
     
     @IBAction func endPointSeach(_ sender: Any) {
-        if let endPointAddress = endPointTextField.text {
+        if let endPointAddress = searchView.endPointTextField.text {
             SwiftSpinner.show(navigationViewModel.geocodeSpinnerInfo, animated: true)
             navigationViewModel.geocode(address: endPointAddress, startPoint: false, completionHandler: { result in
                 SwiftSpinner.hide()
@@ -183,19 +159,13 @@ class NavigationViewController: BaseViewController {
     }
     
     @IBAction func naviButtonClickHandler(_ sender: Any) {
-
-//        var bounds = GMSCoordinateBounds()
-//        for marker in navigationViewModel.mapViewMarkers {
-//            bounds = bounds.includingCoordinate(marker.position)
-//        }
-//        let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
-//        mapView.animate(with: update)
-        
         if let startPoint = navigationViewModel.getAPIPoint(type: .start), let endPoint = navigationViewModel.getAPIPoint(type: .end) {
             SwiftSpinner.show(navigationViewModel.naviSpinnerInfo)
             navigationViewModel.navigationRoute(startPoint: startPoint, endPoint: endPoint, completionHandler: { _ in
                 SwiftSpinner.hide()
+                self.routeOptionsView.setActiveButton(type: self.navigationViewModel.selectedRoute)
                 self.setTopView(to: .navigationDetails)
+                self.setBottomView(to: .routeDetails)
                 self.showRouteOnMap()
             })
         }
@@ -206,17 +176,15 @@ class NavigationViewController: BaseViewController {
     // MARK: - Additional Helpers
     
     fileprivate func showRouteOnMap() {
-        guard let path = navigationViewModel.routeResponse?.polyline,
-            let markerPosition = navigationViewModel.getGeocodePoint(type: .start) else {
+        guard let route = navigationViewModel.getSelectedRoute(), let path = route.poliline else {
             return
         }
+        mapView.clear()
         let poliline = GMSPolyline(path: GMSPath(fromEncodedPath: path))
         poliline.map = mapView
         poliline.strokeColor = StyleKit.colorType(color: .baseGreenColor)
         poliline.strokeWidth = 3
-        mapView.animate(to: GMSCameraPosition(target: markerPosition, zoom: 15, bearing: 0, viewingAngle: 0))
-        changeUI(state: .navi)
-        updateBottomRouteView()
+        addRouteMarkersToMap()
     }
     
     fileprivate func initMapView() {
@@ -233,6 +201,30 @@ class NavigationViewController: BaseViewController {
         mapView.settings.compassButton = true
         mapView.isMyLocationEnabled = true
 //        mapView.settings.myLocationButton = true
+        
+        naviButton.layer.cornerRadius = naviButton.frame.width / 2
+        naviButton.backgroundColor = StyleKit.colorType(color: .baseGreenColor)
+    }
+    
+    fileprivate func addRouteMarkersToMap() {
+        let startMarker = GMSMarker()
+        let endMarker = GMSMarker()
+        
+        guard let markerPositions = navigationViewModel.getRoutePoints() else {
+            return
+        }
+        startMarker.position = markerPositions.0
+        endMarker.position = markerPositions.1
+        
+        startMarker.map = mapView
+        endMarker.map = mapView
+        
+        var bounds = GMSCoordinateBounds()
+        for marker in [startMarker, endMarker] {
+            bounds = bounds.includingCoordinate(marker.position)
+        }
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+        mapView.animate(with: update)
     }
     
     fileprivate func addMarkerToMap(type: MarkerType) {
@@ -260,16 +252,6 @@ class NavigationViewController: BaseViewController {
 
 extension NavigationViewController: NavigationViewModelDelegate {
     
-}
-
-// MARK: - NavigationViewModelDelegate
-
-extension NavigationViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
 }
 
 extension NavigationViewController: CLLocationManagerDelegate {

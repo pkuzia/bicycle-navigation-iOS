@@ -11,7 +11,7 @@ import UIKit
 import SwifterSwift
 
 public enum Attribute {
-    case currentHintLabel, nextHintLabel, naviDetailsAddress
+    case currentHintLabel, nextHintLabel, naviDetailsAddress, routeDetailsTitle, routeDetailsValue
 }
 
 public enum Color {
@@ -26,12 +26,18 @@ class StyleKit {
         var attributedDictionary = [String: AnyObject]()
         switch attribute {
         case .currentHintLabel:
-            attributedDictionary =  attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 17, weight: UIFontWeightRegular))
+            attributedDictionary = attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular))
         case .nextHintLabel:
-            attributedDictionary =  attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular))
+            attributedDictionary = attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 12, weight: UIFontWeightRegular))
         case .naviDetailsAddress:
-            attributedDictionary =  attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium),
+            attributedDictionary = attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium),
                                                    alignment: .center)
+        case .routeDetailsTitle:
+            attributedDictionary = attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular),
+                                                  alignment: .center)
+        case .routeDetailsValue:
+            attributedDictionary = attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular),
+                                                  alignment: .center)
         }
         return NSAttributedString(string: text, attributes: attributedDictionary)
     }

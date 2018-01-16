@@ -13,3 +13,9 @@
 
 "geocode_spinner" = "Szukanie adresu...";
 "navi_spinner" = "Wyznaczanie tras...";
+
+/* Route Details View */
+
+"time_title" = "Time";
+"price_title" = "Price";
+"distance_title" = "Distance";

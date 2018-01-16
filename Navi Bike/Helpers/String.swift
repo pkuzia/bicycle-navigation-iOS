@@ -7,12 +7,20 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     var localized: String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
-    func removeHtmlFromString() -> String{
-        return self.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+    func convertHtml() -> String {
+        guard let data = data(using: .utf8) else { return self }
+        do {
+            return try NSAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                                                NSCharacterEncodingDocumentAttribute: String.Encoding.utf8.rawValue],
+                                          documentAttributes: nil).string.replacingOccurrences(of: "\n", with: " ")
+        } catch {
+            return self
+        }
     }
 }

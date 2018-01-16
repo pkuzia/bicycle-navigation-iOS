@@ -18,7 +18,11 @@ enum MarkerType {
 }
 
 enum NavigationUIState {
-    case search, navi
+    case search, routeOptions, navi
+}
+
+enum RouteType {
+    case free, optimal, fastest
 }
 
 class NavigationViewModel: BaseViewModel {
@@ -40,8 +44,9 @@ class NavigationViewModel: BaseViewModel {
     var routeResponse: RouteResponse?
     var startPointGeocode: GeocodeResponse?
     var endPointGeocode: GeocodeResponse?
-    var currentStep = 1
+    var currentStep = 0
     var mapViewMarkers: [GMSMarker] = []
+    var selectedRoute: RouteType = .free
     
     // MARK: - Functions
     
@@ -59,6 +64,26 @@ class NavigationViewModel: BaseViewModel {
         return nil
     }
     
+    func getRoutePoints() -> (start: CLLocationCoordinate2D, end: CLLocationCoordinate2D)? {
+        if let startPointLat = getSelectedRoute()?.startPoint?.lat, let startPointLng = getSelectedRoute()?.startPoint?.lng,
+            let endPointLat = getSelectedRoute()?.endPoint?.lat, let endPointLng = getSelectedRoute()?.endPoint?.lng {
+            return (start: CLLocationCoordinate2D(latitude: startPointLat, longitude: startPointLng),
+                    CLLocationCoordinate2D(latitude: endPointLat, longitude: endPointLng))
+        }
+        return nil
+    }
+    
+    func getSelectedRoute() -> Route? {
+        switch selectedRoute {
+        case .fastest:
+            return routeResponse?.fastestRoute
+        case .optimal:
+            return routeResponse?.optimalRoute
+        case .free:
+            return routeResponse?.freeRoute
+        }
+    }
+    
     func getAPIPoint(type: MarkerType) -> Point? {
         switch type {
         case .start:
@@ -74,7 +99,7 @@ class NavigationViewModel: BaseViewModel {
     }
     
     func getLocationCurrentStepStartPoint() -> CLLocation? {
-        if let currentStepObject = routeResponse?.routes?.steps?.item(at: currentStep), let lat = currentStepObject.startPoint?.lat,
+        if let currentStepObject = routeResponse?.freeRoute?.steps?.item(at: currentStep), let lat = currentStepObject.startPoint?.lat,
             let lng = currentStepObject.startPoint?.lng {
             return CLLocation(latitude: lat, longitude: lng)
         }
