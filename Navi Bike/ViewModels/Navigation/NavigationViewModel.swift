@@ -99,7 +99,7 @@ class NavigationViewModel: BaseViewModel {
     }
     
     func getLocationCurrentStepStartPoint() -> CLLocation? {
-        if let currentStepObject = routeResponse?.freeRoute?.steps?.item(at: currentStep), let lat = currentStepObject.startPoint?.lat,
+        if let currentStepObject = getSelectedRoute()?.steps?.item(at: currentStep), let lat = currentStepObject.startPoint?.lat,
             let lng = currentStepObject.startPoint?.lng {
             return CLLocation(latitude: lat, longitude: lng)
         }

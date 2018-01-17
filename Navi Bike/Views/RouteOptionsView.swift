@@ -39,19 +39,19 @@ class RouteOptionsView: UIView {
         
         startAddress.attributedText = StyleKit.attributedText(text: startAddressText, attribute: .naviDetailsAddress)
         endAddress.attributedText = StyleKit.attributedText(text: endAddressText, attribute: .naviDetailsAddress)
-        freeRouteOption.isHighlighted = true
+//        freeRouteOption.isHighlighted = true
     }
     
     func setActiveButton(type: RouteType) {
         unselectAllButtons()
-        switch type {
-        case .fastest:
-            fastestRouteOption.isHighlighted = true
-        case .free:
-            freeRouteOption.isHighlighted = true
-        case .optimal:
-            optimalRouteOption.isHighlighted = true
-        }
+//        switch type {
+//        case .fastest:
+//            fastestRouteOption.isHighlighted = true
+//        case .free:
+//            freeRouteOption.isHighlighted = true
+//        case .optimal:
+//            optimalRouteOption.isHighlighted = true
+//        }
     }
     
     fileprivate func unselectAllButtons() {

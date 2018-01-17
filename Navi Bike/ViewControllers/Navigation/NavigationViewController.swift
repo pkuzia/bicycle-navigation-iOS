@@ -99,25 +99,27 @@ class NavigationViewController: BaseViewController {
             searchView.alpha = 1.0
             searchButton.alpha = 1.0
             startNaviButton.alpha = 0.0
+            searchView.startPointTextField.delegate = self
+            searchView.endPointTextField.delegate = self
             searchView.resetTextFields()
         }
     }
     
     fileprivate func mockFunc() {
-        searchView.startPointTextField.text = "Człuchowska 25, Warszawa"
-        searchView.endPointTextField.text = "Nowowiejska 15/19, Warszawa"
-
+        searchView.startPointTextField.text = "Lazurowa 34, Warszawa"
+        searchView.endPointTextField.text = "Francuska 12, Warszawa"
+        
         navigationViewModel.geocode(address: searchView.startPointTextField.text!, startPoint: true, completionHandler: { result in
             SwiftSpinner.hide()
             self.addMarkerToMap(type: .start)
         })
-
+        
         navigationViewModel.geocode(address: searchView.endPointTextField.text!, startPoint: false, completionHandler: { result in
             SwiftSpinner.hide()
             self.addMarkerToMap(type: .end)
         })
     }
-
+    
     fileprivate func changeUI(state: NavigationUIState) {
         UIView.animate(withDuration: 1.0) {
             switch state {
@@ -166,6 +168,9 @@ class NavigationViewController: BaseViewController {
         }
     }
     @IBAction func closeButtonClick(_ sender: Any) {
+        setTopView(to: .search)
+        setBottomView(to: .empty)
+        mapView.clear()
     }
     
     @IBAction func freeRouteOptionClick(_ sender: Any) {
@@ -179,7 +184,7 @@ class NavigationViewController: BaseViewController {
         routeOptionsView.setActiveButton(type: .optimal)
         optionButtonChanged()
     }
-
+    
     @IBAction func fastestRouteOptionClick(_ sender: Any) {
         navigationViewModel.selectedRoute = .fastest
         routeOptionsView.setActiveButton(type: .fastest)
@@ -187,8 +192,8 @@ class NavigationViewController: BaseViewController {
     }
     
     @IBAction func startNaviButtonClick(_ sender: Any) {
-        setBottomView(to: .hintsDetails)
         startNavigation()
+        setBottomView(to: .hintsDetails)
     }
     
     @IBAction func searchButtonClickHandler(_ sender: Any) {
@@ -202,11 +207,16 @@ class NavigationViewController: BaseViewController {
                 self.showRouteOnMap()
             })
         }
-//        let speechUtterance = AVSpeechUtterance(string: "Przemi is the best and notorious gansgter in the world")
-//        speechSynthesizer.speak(speechUtterance)
     }
     
     // MARK: - Additional Helpers
+    
+    fileprivate func speechHint() {
+        if let currentHintValue = navigationViewModel.getSelectedRoute()?.steps?.item(at: navigationViewModel.currentStep)?.instructions {
+            let speechUtterance = AVSpeechUtterance(string: currentHintValue.convertHtml())
+            speechSynthesizer.speak(speechUtterance)
+        }
+    }
     
     fileprivate func optionButtonChanged() {
         showRouteOnMap()
@@ -239,14 +249,14 @@ class NavigationViewController: BaseViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         camera = GMSCameraPosition.camera(withLatitude: 52.2507986,
-                                              longitude: 20.8451497,
-                                              zoom: 14)
+                                          longitude: 20.8451497,
+                                          zoom: 14)
         if let camera = camera {
             mapView.camera = camera
         }
         mapView.settings.compassButton = true
         mapView.isMyLocationEnabled = true
-//        mapView.settings.myLocationButton = true
+        //        mapView.settings.myLocationButton = true
         
         searchButton.layer.cornerRadius = searchButton.frame.width / 2
         searchButton.backgroundColor = StyleKit.colorType(color: .baseGreenColor)
@@ -305,18 +315,36 @@ extension NavigationViewController: NavigationViewModelDelegate {
     
 }
 
+// MARK: - CLLocationManagerDelegate
+
 extension NavigationViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let minDistance = 5.0
+        let changeStepDistance = 20.0
+        let speechDistance = 50.0
         if let currentStepEndPointLocation = navigationViewModel.getLocationCurrentStepStartPoint() {
             print((locations.item(at: 0)?.distance(from: currentStepEndPointLocation))!)
-    
-            if let distance = locations.item(at: 0)?.distance(from: currentStepEndPointLocation),
-                distance < minDistance {
-                navigationViewModel.currentStep += 1
-                updateHintsView()
+            
+            if let distance = locations.item(at: 0)?.distance(from: currentStepEndPointLocation) {
+                if distance < changeStepDistance {
+                    navigationViewModel.currentStep += 1
+                    updateHintsView()
+                }
+                if distance < speechDistance {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                        self.speechHint()
+                    }
+                }
             }
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension NavigationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

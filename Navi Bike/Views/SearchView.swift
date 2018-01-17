@@ -22,19 +22,10 @@ class SearchView: UIView {
     func initView() {
         startPointTextField.placeholder = searchViewModel.startPointPlaceholder
         endPointTextField.placeholder = searchViewModel.endPointPlaceholder
-        startPointTextField.delegate = self
-        endPointTextField.delegate = self
     }
     
     func resetTextFields() {
         startPointTextField.text = ""
         endPointTextField.text = ""
-    }
-}
-
-extension SearchView: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
 }

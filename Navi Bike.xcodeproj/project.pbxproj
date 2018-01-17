@@ -18,7 +18,6 @@
 		94548C59FDC57208A89BF9C2 /* StoryboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C874A4A3DA7F2DEFF0805B /* StoryboardHelper.swift */; };
 		970487E0200E136C001AD190 /* RouteDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970487DF200E136C001AD190 /* RouteDetailsView.swift */; };
 		970487E2200E1420001AD190 /* RouteDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970487E1200E1420001AD190 /* RouteDetailsViewModel.swift */; };
-		9733C66E2000020E00B59CD2 /* ride.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9733C66D2000020E00B59CD2 /* ride.gpx */; };
 		9751B3F61FFB8BC20007D910 /* GeocodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9751B3F51FFB8BC20007D910 /* GeocodeResponse.swift */; };
 		975DA11E1FF93E0F002C94A6 /* GeocodeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975DA11D1FF93E0E002C94A6 /* GeocodeRequest.swift */; };
 		97BFAB241FFBA20F002A97E7 /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BFAB231FFBA20E002A97E7 /* StyleKit.swift */; };
@@ -26,6 +25,7 @@
 		97E2944E200E35C5009FD84C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E2944D200E35C5009FD84C /* SearchView.swift */; };
 		97E29452200E3834009FD84C /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E29451200E3834009FD84C /* SearchViewModel.swift */; };
 		97E29454200E3957009FD84C /* HintsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E29453200E3957009FD84C /* HintsView.swift */; };
+		97E2945A200F36DD009FD84C /* mapstogpx20180117_074615.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 97E29459200F36DC009FD84C /* mapstogpx20180117_074615.gpx */; };
 		97EC41011FF5732500F14D2E /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41001FF5732500F14D2E /* NavigationService.swift */; };
 		97EC41031FF573EE00F14D2E /* RouteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41021FF573EE00F14D2E /* RouteRequest.swift */; };
 		97EC41051FF5741200F14D2E /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41041FF5741200F14D2E /* BaseRequest.swift */; };
@@ -34,7 +34,6 @@
 		97EC41111FF5756200F14D2E /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41101FF5756200F14D2E /* NavigationViewModel.swift */; };
 		97EC41131FF5758600F14D2E /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41121FF5758600F14D2E /* NavigationViewController.swift */; };
 		97EC41151FF6493600F14D2E /* RouteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC41141FF6493600F14D2E /* RouteResponse.swift */; };
-		97EEE93E2006289E005A1297 /* mapstogpx20180110_105501.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 97EEE93D2006289D005A1297 /* mapstogpx20180110_105501.gpx */; };
 		9FA9F3E3603D43CFC5AB6B33 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F703659E5B4BFC4B570798 /* BaseViewModel.swift */; };
 		B7A7F6FD64F5BB17B7382E7F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEAE905292044560ACC9F1F /* Foundation.framework */; };
 		FE1CF6D1F4B79B4B68285B3F /* Pods_Navi_Bike.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D1E627553D6A70360A8F68 /* Pods_Navi_Bike.framework */; };
@@ -62,7 +61,6 @@
 		8280A999B148109C9CA602C8 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		970487DF200E136C001AD190 /* RouteDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailsView.swift; sourceTree = "<group>"; };
 		970487E1200E1420001AD190 /* RouteDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailsViewModel.swift; sourceTree = "<group>"; };
-		9733C66D2000020E00B59CD2 /* ride.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ride.gpx; sourceTree = "<group>"; };
 		9751B3F51FFB8BC20007D910 /* GeocodeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodeResponse.swift; sourceTree = "<group>"; };
 		975DA11D1FF93E0E002C94A6 /* GeocodeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodeRequest.swift; sourceTree = "<group>"; };
 		97BFAB231FFBA20E002A97E7 /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
@@ -70,6 +68,7 @@
 		97E2944D200E35C5009FD84C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		97E29451200E3834009FD84C /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		97E29453200E3957009FD84C /* HintsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintsView.swift; sourceTree = "<group>"; };
+		97E29459200F36DC009FD84C /* mapstogpx20180117_074615.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mapstogpx20180117_074615.gpx; sourceTree = "<group>"; };
 		97EC41001FF5732500F14D2E /* NavigationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationService.swift; sourceTree = "<group>"; };
 		97EC41021FF573EE00F14D2E /* RouteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRequest.swift; sourceTree = "<group>"; };
 		97EC41041FF5741200F14D2E /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
@@ -78,8 +77,6 @@
 		97EC41101FF5756200F14D2E /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		97EC41121FF5758600F14D2E /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		97EC41141FF6493600F14D2E /* RouteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteResponse.swift; sourceTree = "<group>"; };
-		97EEE93A200624D3005A1297 /* ride2.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ride2.gpx; sourceTree = "<group>"; };
-		97EEE93D2006289D005A1297 /* mapstogpx20180110_105501.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mapstogpx20180110_105501.gpx; sourceTree = "<group>"; };
 		A4F703659E5B4BFC4B570798 /* BaseViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		A69FC7C5D87C3476D8412552 /* Navi Bike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Navi Bike.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7D1E627553D6A70360A8F68 /* Pods_Navi_Bike.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navi_Bike.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,13 +128,11 @@
 		4AD4DA2DA26103A6DBC59D65 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				97E29459200F36DC009FD84C /* mapstogpx20180117_074615.gpx */,
 				7317A0627C97194268982855 /* AppDelegate.swift */,
 				D7401AC31DADE04A1B6571CF /* Images.xcassets */,
 				4DB4DA2B7D82C157A00B8715 /* Storyboards */,
 				5069433440AB748538B95AE5 /* Info.plist */,
-				9733C66D2000020E00B59CD2 /* ride.gpx */,
-				97EEE93A200624D3005A1297 /* ride2.gpx */,
-				97EEE93D2006289D005A1297 /* mapstogpx20180110_105501.gpx */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -398,10 +393,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97EEE93E2006289E005A1297 /* mapstogpx20180110_105501.gpx in Resources */,
 				4D1DDC01138D0DAA224D5001 /* Images.xcassets in Resources */,
 				829014781001C16B3B4003AC /* Main.storyboard in Resources */,
-				9733C66E2000020E00B59CD2 /* ride.gpx in Resources */,
+				97E2945A200F36DD009FD84C /* mapstogpx20180117_074615.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
