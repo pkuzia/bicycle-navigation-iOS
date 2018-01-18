@@ -33,7 +33,7 @@ class StyleKit {
             attributedDictionary = attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium),
                                                    alignment: .center)
         case .routeDetailsTitle:
-            attributedDictionary = attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 17, weight: UIFontWeightMedium),
+            attributedDictionary = attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 18, weight: UIFontWeightMedium),
                                                   alignment: .center)
         case .routeDetailsValue:
             attributedDictionary = attributedText(color: UIColor.white, font: UIFont.systemFont(ofSize: 15, weight: UIFontWeightRegular),

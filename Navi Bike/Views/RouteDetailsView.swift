@@ -40,9 +40,9 @@ class RouteDetailsView: UIView {
             timeValue.attributedText = StyleKit.attributedText(text: duration, attribute: .routeDetailsValue)
         }
         
-//        if let price = routeDetailsViewModel.route?. {
-//            priceValue.attributedText = StyleKit.attributedText(text: price, attribute: .routeDetailsValue)
-//        }
+        if let price = routeDetailsViewModel.route?.price {
+            priceValue.attributedText = StyleKit.attributedText(text: price, attribute: .routeDetailsValue)
+        }
         
         if let distance = routeDetailsViewModel.route?.distance {
             distanceValue.attributedText = StyleKit.attributedText(text: distance, attribute: .routeDetailsValue)

@@ -47,6 +47,8 @@ class NavigationViewModel: BaseViewModel {
     var currentStep = 0
     var mapViewMarkers: [GMSMarker] = []
     var selectedRoute: RouteType = .free
+    var hintSpeechCompletedForCurrentStep = false
+    var navigationStarted = false
     
     // MARK: - Functions
     
@@ -71,6 +73,26 @@ class NavigationViewModel: BaseViewModel {
                     CLLocationCoordinate2D(latitude: endPointLat, longitude: endPointLng))
         }
         return nil
+    }
+    
+    func getStationMarkersPosition() -> [CLLocationCoordinate2D] {
+        let selectedRoute = getSelectedRoute()
+        if let steps = selectedRoute?.steps {
+            let stationPositions = steps.filter({ step -> Bool in
+                if let leadToStation = step.leadToStation {
+                    return leadToStation
+                } else {
+                    return false
+                }
+            }).map({ step -> CLLocationCoordinate2D in
+                if let endPointLat = step.endPoint?.lat, let endPointLng = step.endPoint?.lng {
+                    return CLLocationCoordinate2D(latitude: endPointLat, longitude: endPointLng)
+                }
+                return CLLocationCoordinate2D()
+            })
+            return stationPositions
+        }
+        return []
     }
     
     func getSelectedRoute() -> Route? {

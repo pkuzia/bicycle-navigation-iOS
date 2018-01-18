@@ -101,6 +101,7 @@ class NavigationViewController: BaseViewController {
             startNaviButton.alpha = 0.0
             searchView.startPointTextField.delegate = self
             searchView.endPointTextField.delegate = self
+            searchView.initView()
             searchView.resetTextFields()
         }
     }
@@ -171,6 +172,7 @@ class NavigationViewController: BaseViewController {
         setTopView(to: .search)
         setBottomView(to: .empty)
         mapView.clear()
+        navigationViewModel.navigationStarted = false
     }
     
     @IBAction func freeRouteOptionClick(_ sender: Any) {
@@ -228,6 +230,7 @@ class NavigationViewController: BaseViewController {
             mapView.animate(to: GMSCameraPosition(target: startMarker.position, zoom: 15, bearing: 0, viewingAngle: 0))
         }
         navigationViewModel.currentStep = 0
+        navigationViewModel.navigationStarted = true
         updateHintsView()
     }
     
@@ -235,6 +238,7 @@ class NavigationViewController: BaseViewController {
         guard let route = navigationViewModel.getSelectedRoute(), let path = route.poliline else {
             return
         }
+        
         mapView.clear()
         let poliline = GMSPolyline(path: GMSPath(fromEncodedPath: path))
         poliline.map = mapView
@@ -269,12 +273,12 @@ class NavigationViewController: BaseViewController {
         let startMarker = GMSMarker()
         let endMarker = GMSMarker()
         
-        guard let markerPositions = navigationViewModel.getRoutePoints() else {
+        guard let routeMarkersPositions = navigationViewModel.getRoutePoints() else {
             return
         }
         navigationViewModel.mapViewMarkers.removeAll()
-        startMarker.position = markerPositions.0
-        endMarker.position = markerPositions.1
+        startMarker.position = routeMarkersPositions.0
+        endMarker.position = routeMarkersPositions.1
         
         startMarker.map = mapView
         endMarker.map = mapView
@@ -285,6 +289,13 @@ class NavigationViewController: BaseViewController {
             navigationViewModel.mapViewMarkers.append(marker)
         }
         let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+        
+        for station in navigationViewModel.getStationMarkersPosition() {
+            let marker = GMSMarker()
+            marker.position = station
+            marker.map = mapView
+        }
+    
         mapView.animate(with: update)
     }
     
@@ -320,19 +331,21 @@ extension NavigationViewController: NavigationViewModelDelegate {
 extension NavigationViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let changeStepDistance = 20.0
-        let speechDistance = 50.0
+        let speechDistance = 100.0
         if let currentStepEndPointLocation = navigationViewModel.getLocationCurrentStepStartPoint() {
-            print((locations.item(at: 0)?.distance(from: currentStepEndPointLocation))!)
-            
-            if let distance = locations.item(at: 0)?.distance(from: currentStepEndPointLocation) {
+            print("Distance from point: \((locations.item(at: 0)?.distance(from: currentStepEndPointLocation))!)")
+            if let coordinate = locations.item(at: 0)?.coordinate, let distance = locations.item(at: 0)?.distance(from: currentStepEndPointLocation) {
+                if navigationViewModel.navigationStarted {
+                    mapView.animate(toLocation: coordinate)
+                }
+                if distance < speechDistance, !navigationViewModel.hintSpeechCompletedForCurrentStep {
+                    self.navigationViewModel.hintSpeechCompletedForCurrentStep = true
+                    self.speechHint()
+                }
                 if distance < changeStepDistance {
                     navigationViewModel.currentStep += 1
+                    self.navigationViewModel.hintSpeechCompletedForCurrentStep = false
                     updateHintsView()
-                }
-                if distance < speechDistance {
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-                        self.speechHint()
-                    }
                 }
             }
         }

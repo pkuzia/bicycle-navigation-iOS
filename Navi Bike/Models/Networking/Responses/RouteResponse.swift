@@ -28,6 +28,7 @@ class Route: BaseResponse {
     
     var distance: String?
     var duration: String?
+    var price: String?
     
     var endPointAddress: String?
     var endPoint: GooglePoint?
@@ -42,6 +43,7 @@ class Route: BaseResponse {
         
         distance <- map["route.distance"]
         duration <- map["route.duration"]
+        price <- map["route.price"]
         
         endPoint        <- map["route.endPoint"]
         endPointAddress <- map["route.endPointAddress"]
@@ -61,6 +63,7 @@ class Step: BaseResponse {
     var endPoint: GooglePoint?
     var startPoint: GooglePoint?
     
+    var leadToStation: Bool?
     var instructions: String?
     
     override public func mapping(map: Map) {
@@ -69,6 +72,7 @@ class Step: BaseResponse {
         
         endPoint   <- map["endPoint"]
         startPoint <- map["startPoint"]
+        leadToStation <- map["leadToStation"]
         
         instructions <- map["instructions"]
     }
