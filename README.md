@@ -1,6 +1,6 @@
 ![](Screenshots/NaviBikeTitle.png)
 
-The app is designed to help you navigate the[Veturilo](https://www.veturilo.waw.pl)public bike around the city of Warsaw.
+The app is designed to help you navigate the [Veturilo](https://www.veturilo.waw.pl) public bike around the city of Warsaw.
 It allows to find a starting and ending point on the map and with help of Backend application specifies the nearest bike station.
 The application offers the user three types of route:
 
