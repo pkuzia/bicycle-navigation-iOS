@@ -46,7 +46,7 @@ public enum BackendRestClient {
 }
 
 extension BackendRestClient: TargetType {
-    public var baseURL: URL { return URL(string: "http://d0dc36a8.ngrok.io/")! }
+    public var baseURL: URL { return URL(string: "https://acdd67bf.ngrok.io")! }
     
     public var path: String {
         switch self {
