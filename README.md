@@ -23,6 +23,12 @@ Application navigates the cyclist on the route with visual and voice information
 2. Make sure that you open the project referring to  `*.xcworkspace` in Xcode or AppCode
 
 
+## Screenshots
+
+![](Screenshots/NaviBikeScreen1.PNG)
+![](Screenshots/NaviBikeScreen2.PNG)
+![](Screenshots/NaviBikeScreen3.PNG)
+
 ## Built With
 
 * [SwifterSwift](https://github.com/SwifterSwift/SwifterSwift)
